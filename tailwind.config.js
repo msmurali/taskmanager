@@ -6,6 +6,12 @@ module.exports = {
       fontFamily: {
         primary: ["Poppins", "sans-serif"],
       },
+      gridTemplateColumns: {
+        header: "0.25fr 1fr",
+      },
+      screens: {
+        md: "860px",
+      },
     },
   },
   plugins: [],
