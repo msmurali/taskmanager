@@ -5,7 +5,7 @@ import SettingsIcon from "components/icon.components/settings.icon.component";
 
 const SideBar = () => {
   return (
-    <aside className="h-full font-primary px-6 py-4 flex md:flex-col justify-end items-center">
+    <aside className="h-auto font-primary px-6 py-4 flex md:flex-col justify-end md:justify-evenly items-center border-r border-gray-200 border-b">
       <button className="mx-2 md:mx-0 p-3 md:px-4 md:py-3 md:w-full md:h-auto flex bg-purple-700  justify-start items-center rounded shadow-md active:shadow-none">
         <TasksIcon color="white" />
         <span className="hidden md:inline md:ml-4 text-white">Tasks</span>

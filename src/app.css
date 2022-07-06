@@ -1,0 +1,9 @@
+.main {
+  height: calc(100vh - 100px);
+}
+
+@media (min-width: 860px) {
+  .main {
+    height: calc(100vh - 100px);
+  }
+}
