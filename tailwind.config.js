@@ -7,7 +7,10 @@ module.exports = {
         primary: ["Poppins", "sans-serif"],
       },
       gridTemplateColumns: {
-        header: "0.25fr 1fr",
+        layout: "0.25fr 1fr",
+      },
+      gridTemplateRows: {
+        layout: "auto 1fr",
       },
       screens: {
         md: "860px",

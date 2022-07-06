@@ -4,7 +4,7 @@ import SEARCH_ICON from "asset/icon/search.svg";
 
 const Header = () => {
   return (
-    <header className="px-6 py-4 md:px-12 md:py-6 grid font-primary grid-cols-header items-center border-b border-gray-200">
+    <header className="px-6 py-4 md:px-12 md:py-6 grid font-primary grid-cols-layout items-center border-b border-gray-200">
       <h1 className="font-semibold text-lg">TaskManager</h1>
       <nav className="flex justify-end md:justify-between items-center">
         <p className="hidden md:inline">
