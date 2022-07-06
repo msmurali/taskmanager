@@ -1,6 +1,7 @@
 import React from "react";
 import ShoppingIcon from "components/icon.components/shopping.icon.component";
 import CheckIcon from "components/icon.components/check.icon.component";
+import ShoppingImg from "asset/img/shopping.png";
 
 const Task = () => {
   return (
@@ -11,7 +12,12 @@ const Task = () => {
       <h1 className="task-title font-regular text-base mt-5">
         Shop new furniture
       </h1>
-      <div className="task-img w-100 h-40 rounded-lg my-4"></div>
+      <div
+        className="task-img w-100 h-40 rounded-lg my-4 bg-cover"
+        style={{
+          backgroundImage: `url(${ShoppingImg})`,
+        }}
+      ></div>
       <div className="flex justify-between items-center mb-4">
         <div className="tag text-sm px-3 py-1 rounded font-medium bg-purple-300 text-purple-700">
           Shopping

@@ -19,12 +19,12 @@ const Header = () => {
             </button>
           </li>
           <li className="mx-3">
-            <button className="bg-gray-200 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none">
+            <button className="bg-gray-300 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none">
               <img src={SEARCH_ICON} alt="search" />
             </button>
           </li>
           <li className="mx-3">
-            <button className="bg-gray-200 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none"></button>
+            <button className="bg-gray-300 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none"></button>
           </li>
         </ul>
       </nav>
