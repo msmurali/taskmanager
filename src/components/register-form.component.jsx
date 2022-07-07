@@ -17,7 +17,7 @@ const RegisterForm = () => {
 
   return (
     <div className="register-form w-full h-full overflow-y-auto font-primary">
-      <form className="w-full p-6 md:w-1/2 mx-auto">
+      <form className="w-full h-full p-6 md:w-1/2 mx-auto flex flex-col justify-center items-stretch">
         <div className="form-group mt-8">
           <label htmlFor="email" className="block text-sm mb-1">
             Email
@@ -26,7 +26,7 @@ const RegisterForm = () => {
             type="text"
             name="email"
             id="email"
-            className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+            className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             required
             value={email}
             onChange={changeHandler}
@@ -40,7 +40,7 @@ const RegisterForm = () => {
             type="text"
             name="password"
             id="password"
-            className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+            className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             required
             value={password}
             onChange={changeHandler}
@@ -54,12 +54,22 @@ const RegisterForm = () => {
             type="text"
             name="confirm-password"
             id="confirm-password"
-            className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+            className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             required
             value={confirmPassword}
             onChange={changeHandler}
           />
         </div>
+        <button className="mt-10 register-btn block w-full px-4 py-2 rounded bg-purple-700 text-white">
+          Register
+        </button>
+        <p className="text-sm mt-4 text-center">
+          Already have an account?
+          <a href="#" className="text-purple-700">
+            {" "}
+            sign in
+          </a>
+        </p>
       </form>
     </div>
   );
