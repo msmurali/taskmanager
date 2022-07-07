@@ -28,7 +28,7 @@ const LoginForm = () => {
             Email
           </label>
           <input
-            type="text"
+            type="email"
             name="email"
             id="email"
             className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
@@ -42,7 +42,7 @@ const LoginForm = () => {
             Password
           </label>
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
@@ -59,7 +59,7 @@ const LoginForm = () => {
         </button>
         <p className="text-sm mt-4 text-center">
           Don't have an account?
-          <a href="#" className="text-purple-700">
+          <a href="" className="text-purple-700">
             {" "}
             sign up
           </a>

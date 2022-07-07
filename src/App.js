@@ -15,7 +15,7 @@ function App() {
         <SideBar />
         <Dashboard />
       </div> */}
-        <LoginForm />
+        <RegisterForm />
       </div>
     </AuthProvider>
   );
