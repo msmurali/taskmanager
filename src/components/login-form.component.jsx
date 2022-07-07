@@ -20,7 +20,7 @@ const LoginForm = () => {
     <div className="login-form w-full h-full overflow-y-auto font-primary">
       <form
         onSubmit={submitHandler}
-        className="w-full h-full p-6 md:w-1/2 mx-auto flex flex-col justify-center items-stretch"
+        className="w-full h-full p-6 md:w-1/2 mx-auto flex flex-col justify-evenly items-stretch"
       >
         <h1 className="title font-medium text-lg mt-8 text-center">Login</h1>
         <div className="form-group mt-8">
