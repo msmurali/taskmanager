@@ -12,16 +12,18 @@ const TaskInput = ({ uid, val }) => {
       <label htmlFor={uid} className="block text-sm mb-1">
         Task
       </label>
-      <input
-        type="text"
-        name={uid}
-        id={uid}
-        className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
-        minLength="3"
-        required
-        value={task}
-        onChange={taskHanlder}
-      />
+      <div>
+        <input
+          type="text"
+          name={uid}
+          id={uid}
+          className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+          minLength="3"
+          required
+          value={task}
+          onChange={taskHanlder}
+        />
+      </div>
     </div>
   );
 };
@@ -41,10 +43,14 @@ const Form = () => {
     setTasks(newTasks);
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="task-form w-full h-full overflow-y-auto font-primary p-8">
       <h1 className="form-title text-lg font-medium">Create task</h1>
-      <form className="">
+      <form className="" onSubmit={submitHandler}>
         <div className="form-group mt-8">
           <label htmlFor="title" className="block text-sm mb-1">
             Title
@@ -153,7 +159,7 @@ const Form = () => {
             Discard
           </button>
           <button
-            type="button"
+            type="submit"
             className="block add-task my-10 rounded px-4 py-2 bg-purple-700 text-white font-medium shadow-lg active:shadow:none"
           >
             Create
