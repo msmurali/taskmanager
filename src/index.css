@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+.main,
+.login-form,
+.register-form {
+  height: calc(100vh - 100px);
+}
+
+@media (min-width: 860px) {
+  .main,
+  .login-form,
+  .register-form {
+    height: calc(100vh - 100px);
+  }
+}
+
+/*calender styles*/
 abbr {
   text-decoration: none;
 }
