@@ -1,19 +1,26 @@
 import React from "react";
 import { Tag } from "constants/enums";
+import { v4 as generateUUID } from "uuid";
 
-const TaskInput = () => {
+const TaskInput = ({ uid, val }) => {
+  const [task, setTask] = React.useState(val || "");
+
+  const taskHanlder = (e) => setTask(e.target.value);
+
   return (
     <div className="form-group mt-8">
-      <label htmlFor="task" className="block text-sm mb-1">
+      <label htmlFor={uid} className="block text-sm mb-1">
         Task
       </label>
       <input
         type="text"
-        name="task"
-        id="task"
+        name={uid}
+        id={uid}
         className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
         minLength="3"
         required
+        value={task}
+        onChange={taskHanlder}
       />
     </div>
   );
@@ -22,13 +29,17 @@ const TaskInput = () => {
 const Form = () => {
   const [tag, setTag] = React.useState(Tag.GENERAL);
   const [title, setTitle] = React.useState("");
-  const [tasks, setTasks] = React.useState([]);
+  const [tasks, setTasks] = React.useState({});
 
   const changeTag = (newTag) => setTag(newTag);
 
   const titleHandler = (e) => setTitle(e.target.value);
 
-  const addTask = () => setTasks([...tasks, ""]);
+  const addTask = () => {
+    const newTasks = { ...tasks };
+    newTasks[generateUUID()] = "";
+    setTasks(newTasks);
+  };
 
   return (
     <div className="task-form w-full h-full overflow-y-auto font-primary p-8">
@@ -124,8 +135,8 @@ const Form = () => {
             </div>
           </div>
         </div>
-        {tasks.map((task) => (
-          <TaskInput />
+        {Object.keys(tasks).map((key) => (
+          <TaskInput uid={key} key={key} val={tasks[key]} />
         ))}
         <button
           type="button"
