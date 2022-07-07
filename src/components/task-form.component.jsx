@@ -1,7 +1,7 @@
 import React from "react";
 import { Tag } from "constants/enums";
 import { v4 as generateUUID } from "uuid";
-import CloseIcon from "./icon.components/close.icon.component";
+import CloseIcon from "components/icon.components/close.icon.component";
 
 const TaskInput = ({ uid, val, removeTask }) => {
   const [task, setTask] = React.useState(val || "");

@@ -16,7 +16,7 @@ const Dashboard = () => {
         </div>
         <div className="tasks py-4 px-2">
           <Task />
-          <Task />
+
           <Task />
         </div>
       </div>
