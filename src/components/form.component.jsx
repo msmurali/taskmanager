@@ -21,6 +21,8 @@ const TaskInput = () => {
 
 const Form = () => {
   const [tag, setTag] = React.useState(Tag.GENERAL);
+  const [title, setTitle] = React.useState("");
+  const [tasks, setTasks] = React.useState([]);
 
   return (
     <div className="task-form w-full h-full font-primary p-8">
@@ -43,7 +45,7 @@ const Form = () => {
           <label className="block text-sm mb-1">Tag</label>
           <div className="flex justify-center md:justify-start items-center flex-wrap">
             <div
-              className={`mr-4 inline-block tag general-tag font-medium ${
+              className={`mr-4 inline-block cursor-pointer tag general-tag font-medium ${
                 tag === Tag.GENERAL
                   ? "text-green-700 bg-green-200"
                   : "text-gray-700 bg-gray-200"
@@ -52,7 +54,7 @@ const Form = () => {
               General
             </div>
             <div
-              className={`ml-4 my-4 inline-block tag entertainment-tag font-medium  ${
+              className={`ml-4 my-4 inline-block cursor-pointer tag entertainment-tag font-medium  ${
                 tag === Tag.ENTERTAINMENT
                   ? "text-sky-700 bg-sky-200"
                   : "text-gray-700 bg-gray-200"
@@ -61,7 +63,7 @@ const Form = () => {
               Entertainment
             </div>
             <div
-              className={`mx-4 my-4 inline-block tag general-tag font-medium  ${
+              className={`mx-4 my-4 inline-block cursor-pointer tag general-tag font-medium  ${
                 tag === Tag.WORK
                   ? "text-yellow-700 bg-yellow-200"
                   : "text-gray-700 bg-gray-200"
@@ -70,7 +72,7 @@ const Form = () => {
               Learning
             </div>
             <div
-              className={`mx-4  my-4 inline-block tag general-tag font-medium  ${
+              className={`mx-4  my-4 inline-block cursor-pointer tag general-tag font-medium  ${
                 tag === Tag.WORK
                   ? "text-purple-700 bg-purple-200"
                   : "text-gray-700 bg-gray-200"
@@ -79,7 +81,7 @@ const Form = () => {
               Shopping
             </div>
             <div
-              className={`mx-4 my-4 inline-block tag travel-tag font-medium  ${
+              className={`mx-4 my-4 inline-block cursor-pointer tag travel-tag font-medium  ${
                 tag === Tag.TRAVEL
                   ? "text-pink-700 bg-pink-200"
                   : "text-gray-700 bg-gray-200"
@@ -88,7 +90,7 @@ const Form = () => {
               Travel
             </div>
             <div
-              className={`mx-4 my-4 inline-block tag general-tag font-medium  ${
+              className={`mx-4 my-4 inline-block cursor-pointer tag general-tag font-medium  ${
                 tag === Tag.WORK
                   ? "text-red-700 bg-red-200"
                   : "text-gray-700 bg-gray-200"
@@ -97,7 +99,7 @@ const Form = () => {
               Urgent
             </div>
             <div
-              className={`mx-4 my-4 inline-block tag general-tag font-medium ${
+              className={`mx-4 my-4 inline-block cursor-pointer tag general-tag font-medium ${
                 tag === Tag.WORK
                   ? "text-blue-700 bg-blue-200"
                   : "text-gray-700 bg-gray-200"
