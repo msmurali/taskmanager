@@ -1,17 +1,26 @@
 import React from "react";
 import { Tag } from "constants/enums";
 import { v4 as generateUUID } from "uuid";
+import CloseIcon from "./icon.components/close.icon.component";
 
-const TaskInput = ({ uid, val }) => {
+const TaskInput = ({ uid, val, removeTask }) => {
   const [task, setTask] = React.useState(val || "");
 
   const taskHanlder = (e) => setTask(e.target.value);
 
   return (
     <div className="form-group mt-8">
-      <label htmlFor={uid} className="block text-sm mb-1">
-        Task
-      </label>
+      <div className="flex justify-between items-center">
+        <label htmlFor={uid} className="block text-sm mb-1">
+          Task
+        </label>
+        <button
+          className="delete-btn p-2 bg-transparent"
+          onClick={() => removeTask(uid)}
+        >
+          <CloseIcon color="red" />
+        </button>
+      </div>
       <div>
         <input
           type="text"
@@ -40,6 +49,12 @@ const Form = () => {
   const addTask = () => {
     const newTasks = { ...tasks };
     newTasks[generateUUID()] = "";
+    setTasks(newTasks);
+  };
+
+  const removeTask = (key) => {
+    const newTasks = { ...tasks };
+    delete newTasks[key];
     setTasks(newTasks);
   };
 
@@ -142,7 +157,12 @@ const Form = () => {
           </div>
         </div>
         {Object.keys(tasks).map((key) => (
-          <TaskInput uid={key} key={key} val={tasks[key]} />
+          <TaskInput
+            uid={key}
+            key={key}
+            val={tasks[key]}
+            removeTask={removeTask}
+          />
         ))}
         <button
           type="button"
