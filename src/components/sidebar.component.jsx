@@ -7,6 +7,10 @@ import Calendar from "react-calendar";
 const SideBar = () => {
   return (
     <aside className="h-full font-primary px-6 py-4 flex md:flex-col justify-end md:justify-evenly items-center border-r border-gray-200 border-b">
+      <p className="inline md:hidden ml-auto">
+        You have
+        <span className="font-medium"> 4 tasks</span> to complete
+      </p>
       <button className="mx-2 md:mt-4 md:mx-0 p-3 md:px-4 md:py-3 md:w-full md:h-auto flex bg-purple-700  justify-start items-center rounded shadow-md active:shadow-none">
         <TasksIcon color="white" />
         <span className="hidden md:inline md:ml-4 text-white">Tasks</span>
