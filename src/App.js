@@ -1,9 +1,9 @@
 import Dashboard from "components/dashboard.component";
 import Form from "components/task-form.component";
 import LoginForm from "components/login-form.component";
+import RegisterForm from "components/register-form.component";
 import Header from "components/header.component";
 import SideBar from "components/sidebar.component";
-import "./app.css";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <SideBar />
         <Dashboard />
       </div> */}
-      <LoginForm />
+      <RegisterForm />
     </div>
   );
 }
