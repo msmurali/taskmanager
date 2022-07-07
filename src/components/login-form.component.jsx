@@ -5,6 +5,7 @@ const LoginForm = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
   const changeHandler = (e) => {
     if (e.target.name === "email") {
@@ -18,6 +19,7 @@ const LoginForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError(null);
 
     try {
@@ -31,6 +33,8 @@ const LoginForm = () => {
         setError("Something went wrong");
       }
     }
+
+    setLoading(false);
   };
 
   return (
@@ -75,8 +79,9 @@ const LoginForm = () => {
           />
         </div>
         <button
+          disabled={loading}
           type="submit"
-          className="mt-10 register-btn block w-full px-4 py-2 rounded bg-purple-700 text-white shadow-lg active:shadow-none"
+          className="mt-10 register-btn block w-full px-4 py-2 rounded bg-purple-700 disabled:bg-purple-400 text-white shadow-lg active:shadow-none"
         >
           Login
         </button>
