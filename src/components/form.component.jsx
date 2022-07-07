@@ -4,7 +4,7 @@ import { Tag } from "constants/enums";
 const TaskInput = () => {
   return (
     <div className="form-group mt-8">
-      <label htmlFor="title" className="block text-sm mb-1">
+      <label htmlFor="task" className="block text-sm mb-1">
         Task
       </label>
       <input
@@ -26,8 +26,12 @@ const Form = () => {
 
   const changeTag = (newTag) => setTag(newTag);
 
+  const titleHandler = (e) => setTitle(e.target.value);
+
+  const addTask = () => setTasks([...tasks, ""]);
+
   return (
-    <div className="task-form w-full h-full font-primary p-8">
+    <div className="task-form w-full h-full overflow-y-auto font-primary p-8">
       <h1 className="form-title text-lg font-medium">Create task</h1>
       <form className="">
         <div className="form-group mt-8">
@@ -41,6 +45,8 @@ const Form = () => {
             className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             minLength="3"
             required
+            value={title}
+            onChange={titleHandler}
           />
         </div>
         <div className="form-group mt-8">
@@ -118,7 +124,30 @@ const Form = () => {
             </div>
           </div>
         </div>
-        <TaskInput />
+        {tasks.map((task) => (
+          <TaskInput />
+        ))}
+        <button
+          type="button"
+          onClick={addTask}
+          className="block add-task mx-auto my-10 rounded px-4 py-2 bg-purple-700 text-white font-medium shadow-lg active:shadow:none"
+        >
+          Add Task
+        </button>
+        <div className="btn-container flex justify-between items-center">
+          <button
+            type="button"
+            className="block add-task my-10 rounded px-4 py-2 bg-red-600 text-white font-medium shadow-lg active:shadow:none"
+          >
+            Discard
+          </button>
+          <button
+            type="button"
+            className="block add-task my-10 rounded px-4 py-2 bg-purple-700 text-white font-medium shadow-lg active:shadow:none"
+          >
+            Create
+          </button>
+        </div>
       </form>
     </div>
   );
