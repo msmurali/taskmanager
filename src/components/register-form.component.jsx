@@ -15,9 +15,15 @@ const RegisterForm = () => {
     }
   };
 
+  const submitHandler = () => {};
+
   return (
     <div className="register-form w-full h-full overflow-y-auto font-primary">
-      <form className="w-full h-full p-6 md:w-1/2 mx-auto flex flex-col justify-center items-stretch">
+      <form
+        onSubmit={submitHandler}
+        className="w-full h-full p-6 md:w-1/2 mx-auto flex flex-col justify-center items-stretch"
+      >
+        <h1 className="title mt-8 font-medium text-lg text-center">Register</h1>
         <div className="form-group mt-8">
           <label htmlFor="email" className="block text-sm mb-1">
             Email
@@ -60,7 +66,10 @@ const RegisterForm = () => {
             onChange={changeHandler}
           />
         </div>
-        <button className="mt-10 register-btn block w-full px-4 py-2 rounded bg-purple-700 text-white">
+        <button
+          type="submit"
+          className="mt-10 register-btn block w-full px-4 py-2 rounded bg-purple-700 text-white shadow-lg active:shadow-none"
+        >
           Register
         </button>
         <p className="text-sm mt-4 text-center">
