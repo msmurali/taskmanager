@@ -1,6 +1,6 @@
 import React from "react";
-import ADD_ICON from "asset/icon/add.svg";
-import SEARCH_ICON from "asset/icon/search.svg";
+import AddIcon from "components/icon.components/add.icon.component";
+import SearchIcon from "components/icon.components/search.icon.component";
 
 const Header = () => {
   return (
@@ -13,14 +13,16 @@ const Header = () => {
         </p>
         <ul className="flex items-center">
           <li className="mx-3">
-            <button className="text-center text-base font-medium text-white bg-purple-700 px-3 md:px-4 py-2 rounded shadow-lg active:shadow-none">
-              <img src={ADD_ICON} alt="add" className="inline-block md:mr-2" />
+            <button className="flex justify-center items-center text-base font-medium text-white bg-purple-700 px-3 md:px-4 py-2 rounded shadow-lg active:shadow-none">
+              <span className="inline mr-4">
+                <AddIcon color="white" />
+              </span>
               <span className="hidden md:inline">Create task</span>
             </button>
           </li>
           <li className="mx-3">
             <button className="bg-gray-300 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none">
-              <img src={SEARCH_ICON} alt="search" />
+              <SearchIcon />
             </button>
           </li>
           <li className="mx-3">
