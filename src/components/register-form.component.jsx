@@ -1,10 +1,12 @@
 import React from "react";
 import { useAuth } from "contexts/auth-context";
+import { register } from "services/auth.js";
 
 const RegisterForm = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [error, setError] = React.useState(null);
   const { user } = useAuth();
 
   const changeHandler = (e) => {
@@ -19,7 +21,23 @@ const RegisterForm = () => {
     }
   };
 
-  const submitHandler = () => {};
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    setError(null);
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      setConfirmPassword("");
+      return;
+    }
+
+    try {
+      await register(email, password);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="register-form w-full h-full overflow-y-auto font-primary">
@@ -28,6 +46,11 @@ const RegisterForm = () => {
         className="w-full h-full p-6 md:w-1/2 mx-auto flex flex-col justify-evenly items-stretch"
       >
         <h1 className="title mt-8 font-medium text-lg text-center">Register</h1>
+        {error && (
+          <span className="text-red-500 text-sm px-4 py-2 bg-red-200 mt-8 rounded">
+            {error}
+          </span>
+        )}
         <div className="form-group mt-8">
           <label htmlFor="email" className="block text-sm mb-1">
             Email
@@ -54,6 +77,7 @@ const RegisterForm = () => {
             required
             value={password}
             onChange={changeHandler}
+            minLength="6"
           />
         </div>
         <div className="form-group mt-8">
@@ -67,6 +91,7 @@ const RegisterForm = () => {
             className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             required
             value={confirmPassword}
+            minLength="6"
             onChange={changeHandler}
           />
         </div>
