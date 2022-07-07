@@ -3,12 +3,12 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD51_KDrFlRfQdKzyfHaHmC_ARo_HXKPHU",
-  authDomain: "ms-taskmanager.firebaseapp.com",
-  projectId: "ms-taskmanager",
-  storageBucket: "ms-taskmanager.appspot.com",
-  messagingSenderId: "631964128144",
-  appId: "1:631964128144:web:fb6236bc17933edf541915",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 export const app = firebase.initializeApp(firebaseConfig);

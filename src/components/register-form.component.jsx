@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuth } from "contexts/auth-context";
 import { register } from "services/auth.js";
 
 const RegisterForm = () => {
@@ -7,7 +6,6 @@ const RegisterForm = () => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [error, setError] = React.useState(null);
-  const { user } = useAuth();
 
   const changeHandler = (e) => {
     if (e.target.name === "email") {
@@ -35,7 +33,11 @@ const RegisterForm = () => {
     try {
       await register(email, password);
     } catch (error) {
-      console.log(error);
+      if (error.code === "auth/email-already-in-use") {
+        setError("Email already exists");
+      } else {
+        setError("Error");
+      }
     }
   };
 
