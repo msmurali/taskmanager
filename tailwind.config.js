@@ -7,7 +7,7 @@ module.exports = {
         primary: ["Poppins", "sans-serif"],
       },
       gridTemplateColumns: {
-        layout: "0.25fr 1fr",
+        layout: "0.35fr 1fr",
       },
       gridTemplateRows: {
         layout: "auto 1fr",

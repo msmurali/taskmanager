@@ -8,14 +8,9 @@ function App() {
   return (
     <div className="app h-screen">
       <Header />
-      <div className="main w-100 grid grid-cols-1 md:grid-cols-layout">
+      <div className="main w-100 grid grid-cols-1 grid-rows-layout md:grid-rows-1 md:grid-cols-layout">
         <SideBar />
-        <Dashboard>
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-        </Dashboard>
+        <Dashboard />
       </div>
     </div>
   );

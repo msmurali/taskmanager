@@ -5,7 +5,7 @@ import ShoppingImg from "asset/img/shopping.png";
 
 const Task = () => {
   return (
-    <div className="task mx-auto mt-10 bg-white relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg">
+    <div className="task mx-auto mt-10 bg-white relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200">
       <div className="badge absolute -top-4 left-4 w-10 h-10 rounded-full border-2 border-white bg-purple-200 flex justify-center items-center">
         <ShoppingIcon color="rgb(126,34,206)" />
       </div>
