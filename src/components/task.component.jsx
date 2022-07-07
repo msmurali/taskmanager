@@ -2,6 +2,7 @@ import React from "react";
 import ShoppingIcon from "components/icon.components/shopping.icon.component";
 import CheckIcon from "components/icon.components/check.icon.component";
 import ShoppingImg from "asset/img/shopping.png";
+import CloseIcon from "./icon.components/close.icon.component";
 
 const Task = () => {
   return (
@@ -9,9 +10,14 @@ const Task = () => {
       <div className="badge absolute -top-4 left-4 w-10 h-10 rounded-full border-2 border-white bg-purple-200 flex justify-center items-center">
         <ShoppingIcon color="rgb(126,34,206)" />
       </div>
-      <h1 className="task-title font-regular text-base mt-5">
-        Shop new furniture
-      </h1>
+      <div className="flex justify-between items-center mt-5">
+        <h1 className="task-title font-regular text-base">
+          Shop new furniture
+        </h1>
+        <button className="bg-transparent p-2">
+          <CloseIcon color="red" />
+        </button>
+      </div>
       <div
         className="task-img w-100 h-40 rounded-lg my-4 bg-cover"
         style={{
