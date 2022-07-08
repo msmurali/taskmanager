@@ -1,5 +1,5 @@
 import React from "react";
-import { Tag } from "constants/enums";
+import { Tag as tags } from "constants/enums";
 import {
   GeneralImg,
   ShoppingImg,
@@ -9,79 +9,47 @@ import {
   UrgentImg,
   LearningImg,
 } from "asset/img/index";
-import {
-  CheckIcon,
-  CloseIcon,
-  EntertainmentIcon,
-  GeneralIcon,
-  LearningIcon,
-  ShoppingIcon,
-  TravelIcon,
-  UrgentIcon,
-  WorkIcon,
-} from "components/icon.components/index";
-
-const getBadge = (tag) => {
-  switch (tag) {
-    case tag === Tag.GENERAL:
-      return <GeneralIcon color="rgb(21, 128, 61)" />;
-    case tag === Tag.ENTERTAINMENT:
-      return <EntertainmentIcon color="rgb(3, 105, 161)" />;
-    case tag === Tag.LEARNING:
-      return <LearningIcon color="rgb(161, 98, 7)" />;
-    case tag === Tag.SHOPPING:
-      return <ShoppingIcon color="rgb(126, 34, 206)" />;
-    case tag === Tag.URGENT:
-      return <UrgentIcon color="rgb(185, 28, 28)" />;
-    case tag === Tag.TRAVEL:
-      return <TravelIcon color="rgb(190, 24, 93)" />;
-    case tag === Tag.WORK:
-      return <WorkIcon color="rgb(29, 78, 216)" />;
-    default:
-      return <GeneralIcon color="rgb(21, 128, 61)" />;
-  }
-};
+import { CheckIcon, CloseIcon } from "components/icon.components/index";
+import Badge from "components/badge.component";
 
 const getImg = (tag) => {
-  switch (tag) {
-    case tag === Tag.GENERAL:
-      return GeneralImg;
-    case tag === Tag.ENTERTAINMENT:
-      return EntertainmentImg;
-    case tag === Tag.LEARNING:
-      return LearningImg;
-    case tag === Tag.SHOPPING:
-      return ShoppingImg;
-    case tag === Tag.URGENT:
-      return UrgentImg;
-    case tag === Tag.TRAVEL:
-      return TravelImg;
-    case tag === Tag.WORK:
-      return WorkImg;
-    default:
-      return GeneralImg;
+  if (tag === tags.GENERAL) {
+    return GeneralImg;
+  } else if (tag === tags.ENTERTAINMENT) {
+    return EntertainmentImg;
+  } else if (tag === tags.LEARNING) {
+    return LearningImg;
+  } else if (tag === tags.SHOPPING) {
+    return ShoppingImg;
+  } else if (tag === tags.URGENT) {
+    return UrgentImg;
+  } else if (tag === tags.TRAVEL) {
+    return TravelImg;
+  } else if (tag === tags.WORK) {
+    return WorkImg;
+  } else {
+    return GeneralImg;
   }
 };
 
-const Badge = ({ tag }) => {
+const Tag = ({ tag }) => {
   const getColor = () => {
-    switch (tag) {
-      case tag === Tag.GENERAL:
-        return "bg-green-200 text-green-700";
-      case tag === Tag.ENTERTAINMENT:
-        return "bg-sky-200 text-sky-700";
-      case tag === Tag.LEARNING:
-        return "bg-yellow-200 text-yellow-700";
-      case tag === Tag.SHOPPING:
-        return "bg-purple-200 text-purple-700";
-      case tag === Tag.URGENT:
-        return "bg-red-200 text-red-700";
-      case tag === Tag.TRAVEL:
-        return "bg-pink-200 text-pink-700";
-      case tag === Tag.WORK:
-        return "bg-blue-200 text-blue-700";
-      default:
-        return "bg-green-200 text-green-700";
+    if (tag === tags.GENERAL) {
+      return "bg-green-200 text-green-700";
+    } else if (tag === tags.ENTERTAINMENT) {
+      return "bg-sky-200 text-sky-700";
+    } else if (tag === tags.LEARNING) {
+      return "bg-yellow-200 text-yellow-700";
+    } else if (tag === tags.SHOPPING) {
+      return "bg-purple-200 text-purple-700";
+    } else if (tag === tags.URGENT) {
+      return "bg-red-200 text-red-700";
+    } else if (tag === tags.TRAVEL) {
+      return "bg-pink-200 text-pink-700";
+    } else if (tag === tags.WORK) {
+      return "bg-blue-200 text-blue-700";
+    } else {
+      return "bg-green-200 text-green-700";
     }
   };
 
@@ -95,9 +63,7 @@ const Badge = ({ tag }) => {
 const Task = ({ task }) => {
   return (
     <div className="task mx-auto mt-10 bg-white relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200">
-      <div className="badge absolute -top-4 left-4 w-10 h-10 rounded-full border-2 border-white bg-purple-200 flex justify-center items-center">
-        {getBadge(task.tag)}
-      </div>
+      <Badge tag={task.tag} />
       <div className="flex justify-between items-center mt-5">
         <h1 className="task-title font-regular text-base">
           {task && task.title}
@@ -113,7 +79,7 @@ const Task = ({ task }) => {
         }}
       ></div>
       <div className="flex justify-between items-center mb-4">
-        <Badge tag={task.tag} />
+        <Tag tag={task.tag} />
         <div className="date text-sm px-3 py-1 rounded bg-gray-300 ">
           21 Jun - 30 Jun
         </div>
