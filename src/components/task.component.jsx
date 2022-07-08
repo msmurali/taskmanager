@@ -60,6 +60,17 @@ const Tag = ({ tag }) => {
   );
 };
 
+const DateTag = (from, to) => {
+  const fromDate = new Date(from.seconds * 1000);
+  const toDate = new Date(to.seconds * 1000);
+
+  return (
+    <div className="date text-sm px-3 py-1 rounded bg-gray-300 ">
+      {`${fromDate.getDate()} ${fromDate.getMonth()} - ${toDate.getDate()} ${toDate.getMonth()}`}
+    </div>
+  );
+};
+
 const Task = ({ task }) => {
   return (
     <div className="task mx-auto mt-10 bg-white relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200">
@@ -80,9 +91,7 @@ const Task = ({ task }) => {
       ></div>
       <div className="flex justify-between items-center mb-4">
         <Tag tag={task.tag} />
-        <div className="date text-sm px-3 py-1 rounded bg-gray-300 ">
-          21 Jun - 30 Jun
-        </div>
+        <DateTag from={task.from} to={task.to} />
       </div>
       <div className="flex justify-between items-end">
         <div className="progress w-full">
