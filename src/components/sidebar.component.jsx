@@ -6,8 +6,8 @@ import Calendar from "react-calendar";
 
 const SideBar = () => {
   return (
-    <aside className="h-full font-primary px-6 py-4 flex md:flex-col justify-end md:justify-evenly items-center border-r border-gray-200 border-b">
-      <p className="inline md:hidden ml-auto">
+    <aside className="h-full overflow-y-auto font-primary px-6 py-4 flex md:flex-col justify-end md:justify-evenly items-center border-r border-gray-200 border-b">
+      <p className="inline md:hidden mr-auto">
         You have
         <span className="font-medium"> 4 tasks</span> to complete
       </p>
