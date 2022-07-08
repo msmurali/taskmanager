@@ -60,13 +60,19 @@ const Tag = ({ tag }) => {
   );
 };
 
-const DateTag = (from, to) => {
+const DateTag = ({ from, to }) => {
   const fromDate = new Date(from.seconds * 1000);
   const toDate = new Date(to.seconds * 1000);
 
   return (
     <div className="date text-sm px-3 py-1 rounded bg-gray-300 ">
-      {`${fromDate.getDate()} ${fromDate.getMonth()} - ${toDate.getDate()} ${toDate.getMonth()}`}
+      {`${fromDate.toLocaleString("en-IN", {
+        day: "numeric",
+        month: "short",
+      })} - ${toDate.toLocaleString("en-IN", {
+        day: "numeric",
+        month: "short",
+      })} `}
     </div>
   );
 };
