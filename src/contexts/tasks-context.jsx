@@ -1,6 +1,6 @@
 import React from "react";
-import { db, collection } from "services/tasks";
-import { onSnapshot } from "firebase/firestore";
+import { db, col } from "services/tasks";
+import { onSnapshot, collection } from "firebase/firestore";
 
 const TasksContext = React.createContext();
 
@@ -8,9 +8,11 @@ export const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = React.useState([]);
 
   React.useEffect(() => {
-    const colRef = collection(db, collection);
+    const colRef = collection(db, col);
     onSnapshot(colRef, (snapshot) => {
-      console.log(snapshot.docs);
+      const data = [];
+      snapshot.docs.map((doc) => data.push(doc.data().tasks));
+      setTasks(data);
     });
   }, []);
 
