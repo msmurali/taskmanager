@@ -2,10 +2,13 @@ import React from "react";
 import { db, col } from "services/tasks";
 import { onSnapshot, collection } from "firebase/firestore";
 
-const TasksContext = React.createContext();
+export const TasksContext = React.createContext();
 
 export const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = React.useState([]);
+  const [incompleteTasksCount, setIncompleteTasksCount] = React.useState(
+    () => tasks.filter((task) => !task.complete).length
+  );
 
   React.useEffect(() => {
     const colRef = collection(db, col);
@@ -16,7 +19,7 @@ export const TasksProvider = ({ children }) => {
     });
   }, []);
 
-  const value = { tasks };
+  const value = { tasks, incompleteTasksCount };
 
   return (
     <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
