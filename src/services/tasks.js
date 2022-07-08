@@ -1,7 +1,6 @@
 import { app } from "./firebase.js";
 import {
   getFirestore,
-  collection,
   doc,
   setDoc,
   updateDoc,
@@ -9,11 +8,11 @@ import {
 } from "firebase/firestore";
 
 export const db = getFirestore(app);
-const collection = "tasks";
+export const col = "tasks";
 
 export const addTask = async (uid, task) => {
   try {
-    await setDoc(doc(db, collection, uid), task);
+    await setDoc(doc(db, col, uid), task);
   } catch (error) {
     console.log(error);
   }
@@ -21,7 +20,7 @@ export const addTask = async (uid, task) => {
 
 export const updateTask = async (uid, task) => {
   try {
-    await updateDoc(doc(db, collection, uid), task);
+    await updateDoc(doc(db, col, uid), task);
   } catch (error) {
     console.log(error);
   }
@@ -29,7 +28,7 @@ export const updateTask = async (uid, task) => {
 
 export const removeTask = async (uid) => {
   try {
-    await deleteDoc(doc(db, collection, uid));
+    await deleteDoc(doc(db, col, uid));
   } catch (error) {
     console.log(error);
   }
