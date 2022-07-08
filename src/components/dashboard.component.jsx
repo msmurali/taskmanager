@@ -1,9 +1,12 @@
 import React from "react";
-import CheckIcon from "./icon.components/check.icon.component";
-import CloseIcon from "./icon.components/close.icon.component";
-import Task from "./task.component";
+import CheckIcon from "components/icon.components/check.icon.component";
+import CloseIcon from "components/icon.components/close.icon.component";
+import Task from "components/task.component";
+import { TasksContext } from "contexts/tasks-context";
 
 const Dashboard = () => {
+  const data = React.useContext(TasksContext);
+
   return (
     <div className="dashboard font-primary overflow-x-auto grid grid-cols-1 md:grid-cols-2">
       <div className="incomplete-tasks">
@@ -15,9 +18,12 @@ const Dashboard = () => {
           <span className="inline md:hidden font-medium ml-auto">&gt;</span>
         </div>
         <div className="tasks py-4 px-2">
-          <Task />
-
-          <Task />
+          {data &&
+            data.tasks.map((task, index) => {
+              if (!task.completed) {
+                return <Task task={task} key={index} />;
+              }
+            })}
         </div>
       </div>
 
@@ -30,9 +36,12 @@ const Dashboard = () => {
           <span className="inline md:hidden font-medium ml-auto">&gt;</span>
         </div>
         <div className="tasks py-4 px-2">
-          <Task />
-          <Task />
-          <Task />
+          {data &&
+            data.tasks.map((task, index) => {
+              if (task.completed) {
+                return <Task task={task} key={index} />;
+              }
+            })}
         </div>
       </div>
     </div>

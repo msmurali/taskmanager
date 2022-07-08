@@ -1,15 +1,21 @@
 import React from "react";
 import AddIcon from "components/icon.components/add.icon.component";
 import SearchIcon from "components/icon.components/search.icon.component";
+import { TasksContext } from "contexts/tasks-context";
 
 const Header = () => {
+  const { incompleteTasksCount } = React.useContext(TasksContext);
+
   return (
     <header className="px-6 py-4 md:px-12 md:py-6 grid font-primary grid-cols-layout items-center border-b border-gray-200">
       <h1 className="font-semibold text-base md:text-lg">TaskManager</h1>
       <nav className="flex justify-end md:justify-between items-center">
         <p className="hidden md:inline">
           You have
-          <span className="font-medium"> 4 tasks</span> to complete
+          <span className="font-medium">{` ${incompleteTasksCount} ${
+            incompleteTasksCount <= 1 ? "task" : "tasks"
+          }`}</span>{" "}
+          to complete
         </p>
         <ul className="flex items-center">
           <li className="mx-3">
