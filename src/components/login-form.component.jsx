@@ -87,10 +87,8 @@ const LoginForm = () => {
         </button>
         <p className="text-sm mt-4 text-center">
           Don't have an account?
-          <a href="" className="text-purple-700">
-            {" "}
-            sign up
-          </a>
+          {/* <a href="" className="text-purple-700"> */} sign up
+          {/* </a> */}
         </p>
       </form>
     </div>

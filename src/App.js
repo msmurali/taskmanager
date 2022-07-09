@@ -1,12 +1,13 @@
 import Dashboard from "components/dashboard.component";
-import Form from "components/task-form.component";
 import LoginForm from "components/login-form.component";
 import RegisterForm from "components/register-form.component";
 import Header from "components/header.component";
-import SideBar from "components/sidebar.component";
 import { AuthProvider } from "contexts/auth-context";
 import { TasksProvider } from "contexts/tasks-context";
 import TaskPage from "components/task-page.component";
+import TaskForm from "components/task-form.component";
+import { Routes, Route } from "react-router-dom";
+import Home from "components/home.component";
 
 function App() {
   return (
@@ -14,11 +15,15 @@ function App() {
       <TasksProvider>
         <div className="app h-screen mx-auto">
           <Header />
-          <div className="main w-100 grid grid-cols-1 grid-rows-layout md:grid-rows-1 md:grid-cols-layout">
-            <SideBar />
-            <Form />
-          </div>
-          {/* <LoginForm /> */}
+          <Routes>
+            <Route path="/" element={<Home />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="create" element={<TaskForm />} />
+              <Route path="task" element={<TaskPage />} />
+            </Route>
+            <Route path="login" element={<LoginForm />} />
+            <Route path="register" element={<RegisterForm />} />
+          </Routes>
         </div>
       </TasksProvider>
     </AuthProvider>

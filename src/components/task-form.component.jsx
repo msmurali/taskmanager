@@ -35,7 +35,7 @@ const TaskInput = ({ uid, val, removeTask, setVal }) => {
   );
 };
 
-const Form = () => {
+const TaskForm = () => {
   const [tag, setTag] = React.useState(Tag.GENERAL);
   const [title, setTitle] = React.useState("");
   const [tasks, setTasks] = React.useState({});
@@ -188,4 +188,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default TaskForm;
