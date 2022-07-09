@@ -95,7 +95,7 @@ const Task = ({ task }) => {
           backgroundImage: `url(${getImg(task.tag)})`,
         }}
       ></div>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 pt-3">
         <Tag tag={task.tag} />
         <DateTag from={task.from} to={task.to} />
       </div>

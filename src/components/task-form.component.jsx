@@ -3,10 +3,8 @@ import { Tag } from "constants/enums";
 import { v4 as generateUUID } from "uuid";
 import CloseIcon from "components/icon.components/close.icon.component";
 
-const TaskInput = ({ uid, val, removeTask }) => {
-  const [task, setTask] = React.useState(val || "");
-
-  const taskHanlder = (e) => setTask(e.target.value);
+const TaskInput = ({ uid, val, removeTask, setVal }) => {
+  const changeHandler = (e) => setVal(e.target.value);
 
   return (
     <div className="form-group mt-8">
@@ -29,8 +27,8 @@ const TaskInput = ({ uid, val, removeTask }) => {
           className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
           minLength="3"
           required
-          value={task}
-          onChange={taskHanlder}
+          value={val}
+          onChange={changeHandler}
         />
       </div>
     </div>
@@ -87,8 +85,8 @@ const Form = () => {
             <div
               className={`mr-4 inline-block cursor-pointer tag general-tag font-medium ${
                 tag === Tag.GENERAL
-                  ? "text-green-700 bg-green-200"
-                  : "text-gray-700 bg-gray-200"
+                  ? "text-green-700 bg-green-200 shadow-none"
+                  : "text-gray-700 bg-gray-200 shadow-md"
               }  px-2 py-1 rounded`}
               onClick={() => changeTag(Tag.GENERAL)}
             >
@@ -97,8 +95,8 @@ const Form = () => {
             <div
               className={`mx-4 my-4 inline-block cursor-pointer tag entertainment-tag font-medium  ${
                 tag === Tag.ENTERTAINMENT
-                  ? "text-sky-700 bg-sky-200"
-                  : "text-gray-700 bg-gray-200"
+                  ? "text-sky-700 bg-sky-200 shadow-none"
+                  : "text-gray-700 bg-gray-200 shadow-md"
               }  px-2 py-1 rounded`}
               onClick={() => changeTag(Tag.ENTERTAINMENT)}
             >
@@ -107,8 +105,8 @@ const Form = () => {
             <div
               className={`mx-4 my-4 inline-block cursor-pointer tag learning-tag font-medium  ${
                 tag === Tag.LEARNING
-                  ? "text-yellow-700 bg-yellow-200"
-                  : "text-gray-700 bg-gray-200"
+                  ? "text-yellow-700 bg-yellow-200 shadow-none"
+                  : "text-gray-700 bg-gray-200 shadow-md"
               }  px-2 py-1 rounded`}
               onClick={() => changeTag(Tag.LEARNING)}
             >
@@ -117,8 +115,8 @@ const Form = () => {
             <div
               className={`mx-4  my-4 inline-block cursor-pointer tag shopping-tag font-medium  ${
                 tag === Tag.SHOPPING
-                  ? "text-purple-700 bg-purple-200"
-                  : "text-gray-700 bg-gray-200"
+                  ? "text-purple-700 bg-purple-200 shadow-none"
+                  : "text-gray-700 bg-gray-200 shadow-md"
               }  px-2 py-1 rounded`}
               onClick={() => changeTag(Tag.SHOPPING)}
             >
@@ -127,8 +125,8 @@ const Form = () => {
             <div
               className={`mx-4 my-4 inline-block cursor-pointer tag travel-tag font-medium  ${
                 tag === Tag.TRAVEL
-                  ? "text-pink-700 bg-pink-200"
-                  : "text-gray-700 bg-gray-200"
+                  ? "text-pink-700 bg-pink-200 shadow-none"
+                  : "text-gray-700 bg-gray-200 shadow-md"
               }  px-2 py-1 rounded`}
               onClick={() => changeTag(Tag.TRAVEL)}
             >
@@ -137,8 +135,8 @@ const Form = () => {
             <div
               className={`mx-4 my-4 inline-block cursor-pointer tag urgent-tag font-medium  ${
                 tag === Tag.URGENT
-                  ? "text-red-700 bg-red-200"
-                  : "text-gray-700 bg-gray-200"
+                  ? "text-red-700 bg-red-200 shadow-none"
+                  : "text-gray-700 bg-gray-200 shadow-md"
               }  px-2 py-1 rounded`}
               onClick={() => changeTag(Tag.URGENT)}
             >
@@ -147,8 +145,8 @@ const Form = () => {
             <div
               className={`ml-4 my-4 inline-block cursor-pointer tag work-tag font-medium ${
                 tag === Tag.WORK
-                  ? "text-blue-700 bg-blue-200"
-                  : "text-gray-700 bg-gray-200"
+                  ? "text-blue-700 bg-blue-200 shadow-none"
+                  : "text-gray-700 bg-gray-200 shadow-md"
               }  px-2 py-1 rounded`}
               onClick={() => changeTag(Tag.WORK)}
             >

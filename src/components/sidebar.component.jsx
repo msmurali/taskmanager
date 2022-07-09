@@ -6,14 +6,14 @@ import Calendar from "react-calendar";
 import { TasksContext } from "contexts/tasks-context";
 
 const SideBar = () => {
-  const { inCompleteTasksCount } = React.useContext(TasksContext);
+  const { incompleteTasksCount } = React.useContext(TasksContext);
 
   return (
     <aside className="h-full overflow-y-auto font-primary px-6 py-4 flex md:flex-col justify-end md:justify-evenly items-center border-r border-gray-200 border-b">
       <p className="inline md:hidden mr-auto">
         You have
-        <span className="font-medium">{` ${inCompleteTasksCount} ${
-          inCompleteTasksCount <= 1 ? "task" : "tasks"
+        <span className="font-medium">{` ${incompleteTasksCount} ${
+          incompleteTasksCount <= 1 ? "task" : "tasks"
         }`}</span>{" "}
         to complete
       </p>
