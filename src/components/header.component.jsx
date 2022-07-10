@@ -2,6 +2,7 @@ import React from "react";
 import AddIcon from "components/icon.components/add.icon.component";
 import SearchIcon from "components/icon.components/search.icon.component";
 import { TasksContext } from "contexts/tasks-context";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { incompleteTasksCount } = React.useContext(TasksContext);
@@ -19,21 +20,20 @@ const Header = () => {
         </p>
         <ul className="flex items-center">
           <li className="mx-3">
-            <button className="flex justify-center items-center text-base font-medium text-white bg-purple-700 px-3 md:px-4 py-2 rounded shadow-lg active:shadow-none">
-              <span className="inline mr-0 md:mr-4">
-                <AddIcon color="white" />
-              </span>
-              <span className="hidden md:inline">Create task</span>
-            </button>
+            <Link to="create">
+              <button className="flex justify-center items-center text-base font-medium text-white bg-purple-700 px-3 md:px-4 py-2 rounded shadow-lg active:shadow-none">
+                <span className="inline mr-0 md:mr-4">
+                  <AddIcon color="white" />
+                </span>
+                <span className="hidden md:inline">Create task</span>
+              </button>
+            </Link>
           </li>
           <li className="mx-3">
             <button className="bg-gray-300 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none">
               <SearchIcon />
             </button>
           </li>
-          {/* <li className="mx-3">
-            <button className="bg-gray-300 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none"></button>
-          </li> */}
         </ul>
       </nav>
     </header>
