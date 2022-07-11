@@ -3,18 +3,16 @@ import { Tag } from "constants/enums";
 import { v4 as generateUUID } from "uuid";
 import CloseIcon from "components/icon.components/close.icon.component";
 
-const TaskInput = ({ uid, val, removeTask, setVal }) => {
-  const changeHandler = (e) => setVal(e.target.value);
-
+const TaskInput = ({ id, val, removeTask, setVal }) => {
   return (
     <div className="form-group mt-8">
       <div className="flex justify-between items-center">
-        <label htmlFor={uid} className="block text-sm mb-1">
+        <label htmlFor={id} className="block text-sm mb-1">
           Task
         </label>
         <button
           className="delete-btn p-2 bg-transparent"
-          onClick={() => removeTask(uid)}
+          onClick={() => removeTask(id)}
         >
           <CloseIcon color="red" />
         </button>
@@ -22,13 +20,13 @@ const TaskInput = ({ uid, val, removeTask, setVal }) => {
       <div>
         <input
           type="text"
-          name={uid}
-          id={uid}
+          name={id}
+          id={id}
           className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
           minLength="3"
           required
           value={val}
-          onChange={changeHandler}
+          onChange={(e) => setVal(id, e.target.value)}
         />
       </div>
     </div>
@@ -38,21 +36,32 @@ const TaskInput = ({ uid, val, removeTask, setVal }) => {
 const TaskForm = () => {
   const [tag, setTag] = React.useState(Tag.GENERAL);
   const [title, setTitle] = React.useState("");
-  const [tasks, setTasks] = React.useState({});
+  const [tasks, setTasks] = React.useState([
+    /*{
+      text: ...,
+      completed: ....
+    }*/
+  ]);
 
   const changeTag = (newTag) => setTag(newTag);
 
   const titleHandler = (e) => setTitle(e.target.value);
 
   const addTask = () => {
-    const newTasks = { ...tasks };
-    newTasks[generateUUID()] = "";
+    const newTasks = [...tasks];
+    newTasks.push({ text: "", completed: false });
     setTasks(newTasks);
   };
 
-  const removeTask = (key) => {
-    const newTasks = { ...tasks };
-    delete newTasks[key];
+  const removeTask = (id) => {
+    const newTasks = [...tasks];
+    newTasks.splice(id);
+    setTasks(newTasks);
+  };
+
+  const updateTask = (id, text) => {
+    const newTasks = [...tasks];
+    newTasks[id] = { ...newTasks[id], text };
     setTasks(newTasks);
   };
 
@@ -154,12 +163,13 @@ const TaskForm = () => {
             </div>
           </div>
         </div>
-        {Object.keys(tasks).map((key) => (
+        {tasks.map((task, index) => (
           <TaskInput
-            uid={key}
-            key={key}
-            val={tasks[key]}
+            id={index}
+            key={index}
+            val={task.text}
             removeTask={removeTask}
+            setVal={updateTask}
           />
         ))}
         <button
