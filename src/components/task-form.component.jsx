@@ -1,13 +1,16 @@
 import React from "react";
 import { Tag } from "constants/enums";
-import { v4 as generateUUID } from "uuid";
 import CloseIcon from "components/icon.components/close.icon.component";
+import { Timestamp } from "@firebase/firestore";
+import { useAuth } from "contexts/auth-context";
+import { addTask as addDoc } from "services/tasks";
+import { TasksContext } from "contexts/tasks-context";
 
 const TaskInput = ({ id, val, removeTask, setVal }) => {
   return (
     <div className="form-group mt-8">
       <div className="flex justify-between items-center">
-        <label htmlFor={id} className="block text-sm mb-1">
+        <label htmlFor={`task-${id}`} className="block text-sm mb-1">
           Task
         </label>
         <button
@@ -20,8 +23,8 @@ const TaskInput = ({ id, val, removeTask, setVal }) => {
       <div>
         <input
           type="text"
-          name={id}
-          id={id}
+          name={`task-${id}`}
+          id={`task-${id}`}
           className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
           minLength="3"
           required
@@ -42,6 +45,10 @@ const TaskForm = () => {
       completed: ....
     }*/
   ]);
+  const [from, setFrom] = React.useState("");
+  const [to, setTo] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const { user } = useAuth();
 
   const changeTag = (newTag) => setTag(newTag);
 
@@ -65,8 +72,24 @@ const TaskForm = () => {
     setTasks(newTasks);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    const task = {
+      title,
+      tag,
+      from: Timestamp.fromDate(new Date(from)),
+      to: Timestamp.fromDate(new Date(to)),
+      createdAt: Timestamp.now(),
+      completed: false,
+      totalTasks: tasks.length,
+      completedTasks: 0,
+      tasks,
+    };
+
+    await addDoc(user.uid, task);
+    setLoading(false);
   };
 
   return (
@@ -163,6 +186,38 @@ const TaskForm = () => {
             </div>
           </div>
         </div>
+
+        <div className="form-group flex mt-8 w-full justify-between items-center flex-wrap">
+          <div className="w-full md:w-2/5">
+            <label htmlFor="title" className="block text-sm mb-1">
+              From
+            </label>
+            <input
+              type="date"
+              name="from"
+              id="from"
+              className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+              required
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+            />
+          </div>
+          <div className="w-full md:w-2/5">
+            <label htmlFor="title" className="block text-sm mb-1">
+              To
+            </label>
+            <input
+              type="date"
+              name="to"
+              id="to"
+              className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+              required
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+            />
+          </div>
+        </div>
+
         {tasks.map((task, index) => (
           <TaskInput
             id={index}
@@ -172,23 +227,24 @@ const TaskForm = () => {
             setVal={updateTask}
           />
         ))}
+
         <button
           type="button"
           onClick={addTask}
-          className="block add-task mx-auto my-10 rounded px-4 py-2 bg-purple-700 text-white font-medium shadow-lg active:shadow:none"
+          className="block add-task mx-auto my-10 rounded px-4 py-2 bg-purple-700 text-white font-medium shadow-lg active:shadow-none"
         >
           Add Task
         </button>
         <div className="btn-container flex justify-between items-center">
           <button
             type="button"
-            className="block add-task my-10 rounded px-4 py-2 bg-red-600 text-white font-medium shadow-lg active:shadow:none"
+            className="block add-task my-10 rounded px-4 py-2 bg-red-600 text-white font-medium shadow-lg active:shadow-none"
           >
             Discard
           </button>
           <button
             type="submit"
-            className="block add-task my-10 rounded px-4 py-2 bg-purple-700 text-white font-medium shadow-lg active:shadow:none"
+            className="block add-task my-10 rounded px-4 py-2 bg-purple-700 text-white font-medium shadow-lg active:shadow-none"
           >
             Create
           </button>

@@ -5,16 +5,24 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  arrayUnion,
 } from "firebase/firestore";
 
 export const db = getFirestore(app);
 export const col = "tasks-collection";
 
-export const addTask = async (uid, task) => {
+export const addTask = async (uid, data) => {
+  const key = `tasks-${uid}`;
   try {
-    await setDoc(doc(db, col, uid), task);
+    await updateDoc(doc(db, col, uid), {
+      [key]: arrayUnion(data),
+    });
   } catch (error) {
-    console.log(error);
+    if (error.code === "not-found") {
+      await setDoc(doc(db, col, uid), { [`tasks-${uid}`]: [data] });
+    } else {
+      console.log(error);
+    }
   }
 };
 
