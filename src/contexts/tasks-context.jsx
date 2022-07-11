@@ -29,6 +29,8 @@ export const TasksProvider = ({ children }) => {
   };
 
   return (
-    <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
+    <TasksContext.Provider value={value}>
+      {tasks.length !== 0 && children}
+    </TasksContext.Provider>
   );
 };

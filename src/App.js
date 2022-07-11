@@ -19,7 +19,8 @@ function App() {
             <Route path="/" element={<Home />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="create" element={<TaskForm />} />
-              <Route path="task" element={<TaskPage />} />
+              <Route path="task/:id" element={<TaskPage />} />
+              <Route path="edit/:id" element={<TaskForm />} />
             </Route>
             <Route path="login" element={<LoginForm />} />
             <Route path="register" element={<RegisterForm />} />
