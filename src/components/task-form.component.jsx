@@ -4,7 +4,8 @@ import CloseIcon from "components/icon.components/close.icon.component";
 import { Timestamp } from "@firebase/firestore";
 import { useAuth } from "contexts/auth-context";
 import { addTask as addDoc } from "services/tasks";
-import { TasksContext } from "contexts/tasks-context";
+import { useNavigate } from "react-router-dom";
+import LoadingIcon from "components/icon.components/loading.icon.component";
 
 const TaskInput = ({ id, val, removeTask, setVal }) => {
   return (
@@ -49,6 +50,7 @@ const TaskForm = () => {
   const [to, setTo] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const { user } = useAuth();
+  const navigateTo = useNavigate();
 
   const changeTag = (newTag) => setTag(newTag);
 
@@ -90,6 +92,26 @@ const TaskForm = () => {
 
     await addDoc(user.uid, task);
     setLoading(false);
+    resetFields();
+    navigateTo("dashboard");
+  };
+
+  const discardHandler = () => {
+    const res = confirm("Are you sure?");
+    if (res) {
+      resetFields();
+      navigateTo("dashboard");
+    } else {
+      return;
+    }
+  };
+
+  const resetFields = () => {
+    setTitle("");
+    setTag("general");
+    setTasks([]);
+    setFrom("");
+    setTo("");
   };
 
   return (
@@ -237,16 +259,21 @@ const TaskForm = () => {
         </button>
         <div className="btn-container flex justify-between items-center">
           <button
+            onClick={discardHandler}
             type="button"
             className="block add-task my-10 rounded px-4 py-2 bg-red-600 text-white font-medium shadow-lg active:shadow-none"
           >
             Discard
           </button>
           <button
+            disabled={loading}
             type="submit"
             className="block add-task my-10 rounded px-4 py-2 bg-purple-700 text-white font-medium shadow-lg active:shadow-none"
           >
-            Create
+            <span className={loading ? "inline-block" : "hidden"}>
+              <LoadingIcon color="white" />
+            </span>
+            <span className={!loading ? "inline-block" : "hidden"}>Create</span>
           </button>
         </div>
       </form>
