@@ -93,14 +93,14 @@ const TaskForm = () => {
     await addDoc(user.uid, task);
     setLoading(false);
     resetFields();
-    navigateTo("dashboard");
+    navigateTo("/dashboard");
   };
 
   const discardHandler = () => {
-    const res = confirm("Are you sure?");
+    const res = window.confirm("Are you sure?");
     if (res) {
       resetFields();
-      navigateTo("dashboard");
+      navigateTo("/dashboard");
     } else {
       return;
     }
