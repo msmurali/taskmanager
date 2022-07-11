@@ -1,11 +1,13 @@
 import React from "react";
 import { register } from "services/auth.js";
+import { Link } from "react-router-dom";
 
 const RegisterForm = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
   const changeHandler = (e) => {
     if (e.target.name === "email") {
@@ -21,7 +23,7 @@ const RegisterForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     setError(null);
 
     if (password !== confirmPassword) {
@@ -39,6 +41,8 @@ const RegisterForm = () => {
         setError("Error");
       }
     }
+
+    setLoading(false);
   };
 
   return (
@@ -98,6 +102,7 @@ const RegisterForm = () => {
           />
         </div>
         <button
+          disabled={loading}
           type="submit"
           onSubmit={submitHandler}
           className="mt-10 register-btn block w-full px-4 py-2 rounded bg-purple-700 text-white shadow-lg active:shadow-none"

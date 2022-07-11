@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 
 export const db = getFirestore(app);
-export const col = "tasks";
+export const col = "tasks-collection";
 
 export const addTask = async (uid, task) => {
   try {
