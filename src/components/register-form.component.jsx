@@ -106,8 +106,10 @@ const RegisterForm = () => {
         </button>
         <p className="text-sm mt-4 text-center">
           Already have an account?
-          {/* <a href="" className="text-purple-700"> */} sign in
-          {/* </a> */}
+          <Link to="login" className="text-purple-700">
+            {" "}
+            sign in{" "}
+          </Link>
         </p>
       </form>
     </div>

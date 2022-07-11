@@ -18,12 +18,16 @@ const SideBar = () => {
         }`}</span>{" "}
         to complete
       </p>
-      <Link to="dashboard">
+
+      <Link to="dashboard" className="w-auto md:w-full">
         <button className="mx-2 md:mt-4 md:mx-0 p-3 md:px-4 md:py-3 md:w-full md:h-auto flex bg-purple-700  justify-start items-center rounded shadow-md active:shadow-none">
-          <TasksIcon color="white" />
+          <span className="inline">
+            <TasksIcon color="white" />
+          </span>
           <span className="hidden md:inline md:ml-4 text-white">Tasks</span>
         </button>
       </Link>
+
       <div className="my-4 hidden md:block">
         <Calendar />
       </div>

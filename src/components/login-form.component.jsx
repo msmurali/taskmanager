@@ -1,5 +1,6 @@
 import React from "react";
 import { login } from "services/auth";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = React.useState("");
@@ -87,8 +88,10 @@ const LoginForm = () => {
         </button>
         <p className="text-sm mt-4 text-center">
           Don't have an account?
-          {/* <a href="" className="text-purple-700"> */} sign up
-          {/* </a> */}
+          <Link to="register" className="text-purple-700">
+            {" "}
+            sign up{" "}
+          </Link>
         </p>
       </form>
     </div>
