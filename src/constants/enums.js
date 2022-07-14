@@ -7,15 +7,6 @@ import {
   EntertainmentImg,
   GeneralImg,
 } from "asset/img/index";
-import {
-  GeneralIcon,
-  EntertainmentIcon,
-  LearningIcon,
-  ShoppingIcon,
-  TravelIcon,
-  UrgentIcon,
-  WorkIcon,
-} from "components/icon.components";
 
 export const Tag = Object.freeze({
   GENERAL: "general",
@@ -25,16 +16,6 @@ export const Tag = Object.freeze({
   TRAVEL: "travel",
   URGENT: "urgent",
   WORK: "work",
-});
-
-export const TagIcon = Object.freeze({
-  GENERAL: GeneralIcon,
-  ENTERTAINMENT: EntertainmentIcon,
-  LEARNING: LearningIcon,
-  SHOPPING: ShoppingIcon,
-  TRAVEL: TravelIcon,
-  URGENT: UrgentIcon,
-  WORK: WorkIcon,
 });
 
 export const TagColorDark = Object.freeze({
