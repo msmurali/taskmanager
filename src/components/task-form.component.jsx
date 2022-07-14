@@ -94,6 +94,20 @@ const TaskForm = () => {
     e.preventDefault();
     setLoading(true);
 
+    if (pathname.includes("edit")) {
+      await updateTaskInDb();
+    } else {
+      await addTaskToDb();
+    }
+
+    setLoading(false);
+    resetFields();
+    navigateTo("/dashboard");
+  };
+
+  const updateTaskInDb = () => {};
+
+  const addTaskToDb = async () => {
     const task = {
       title,
       tag,
@@ -107,9 +121,6 @@ const TaskForm = () => {
     };
 
     await addDoc(user.uid, task);
-    setLoading(false);
-    resetFields();
-    navigateTo("/dashboard");
   };
 
   const discardHandler = () => {
