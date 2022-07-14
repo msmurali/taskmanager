@@ -19,11 +19,11 @@ const Dashboard = () => {
         </div>
         <div className="tasks py-4 px-2">
           {data &&
-            data.tasks.map((task, index) => {
-              if (!task.completed) {
-                return <Task task={task} key={index} />;
-              }
-            })}
+            data.tasks
+              .filter((task) => !task.completed)
+              .map((task, index) => (
+                <Task task={task} key={index} id={index} />
+              ))}
         </div>
       </div>
 
@@ -37,11 +37,11 @@ const Dashboard = () => {
         </div>
         <div className="tasks py-4 px-2">
           {data &&
-            data.tasks.map((task, index) => {
-              if (task.completed) {
-                return <Task task={task} key={index} />;
-              }
-            })}
+            data.tasks
+              .filter((task) => task.completed)
+              .map((task, index) => (
+                <Task task={task} key={index} id={index} />
+              ))}
         </div>
       </div>
     </div>
