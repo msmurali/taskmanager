@@ -1,62 +1,17 @@
 import React from "react";
-import { Tag as tags } from "constants/enums";
-import {
-  GeneralImg,
-  ShoppingImg,
-  EntertainmentImg,
-  WorkImg,
-  TravelImg,
-  UrgentImg,
-  LearningImg,
-} from "asset/img/index";
+import { TagColorDark, TagColorLight, TagImg } from "constants/enums";
 import { CheckIcon, CloseIcon } from "components/icon.components/index";
 import Badge from "components/badge.component";
 import { removeTask } from "services/tasks";
 import { useAuth } from "contexts/auth-context";
 
-const getImg = (tag) => {
-  if (tag === tags.GENERAL) {
-    return GeneralImg;
-  } else if (tag === tags.ENTERTAINMENT) {
-    return EntertainmentImg;
-  } else if (tag === tags.LEARNING) {
-    return LearningImg;
-  } else if (tag === tags.SHOPPING) {
-    return ShoppingImg;
-  } else if (tag === tags.URGENT) {
-    return UrgentImg;
-  } else if (tag === tags.TRAVEL) {
-    return TravelImg;
-  } else if (tag === tags.WORK) {
-    return WorkImg;
-  } else {
-    return GeneralImg;
-  }
-};
-
 const Tag = ({ tag }) => {
-  const getColor = () => {
-    if (tag === tags.GENERAL) {
-      return "bg-green-200 text-green-700";
-    } else if (tag === tags.ENTERTAINMENT) {
-      return "bg-sky-200 text-sky-700";
-    } else if (tag === tags.LEARNING) {
-      return "bg-yellow-200 text-yellow-700";
-    } else if (tag === tags.SHOPPING) {
-      return "bg-purple-200 text-purple-700";
-    } else if (tag === tags.URGENT) {
-      return "bg-red-200 text-red-700";
-    } else if (tag === tags.TRAVEL) {
-      return "bg-pink-200 text-pink-700";
-    } else if (tag === tags.WORK) {
-      return "bg-blue-200 text-blue-700";
-    } else {
-      return "bg-green-200 text-green-700";
-    }
-  };
-
   return (
-    <div className={`tag text-sm px-3 py-1 rounded font-medium ${getColor()}`}>
+    <div
+      className={`tag text-sm px-3 py-1 rounded font-medium text-${
+        TagColorDark[tag.toUpperCase()]
+      } bg-${TagColorLight[tag.toUpperCase()]}`}
+    >
       {tag}
     </div>
   );
@@ -100,7 +55,7 @@ const Task = ({ task }) => {
       <div
         className="task-img w-100 h-40 rounded-lg my-4 bg-cover"
         style={{
-          backgroundImage: `url(${getImg(task.tag)})`,
+          backgroundImage: `url(${TagImg[task.tag.toUpperCase()]})`,
         }}
       ></div>
       <div className="flex justify-between items-center mb-4 pt-3">
