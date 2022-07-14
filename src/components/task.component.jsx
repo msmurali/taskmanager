@@ -11,6 +11,8 @@ import {
 } from "asset/img/index";
 import { CheckIcon, CloseIcon } from "components/icon.components/index";
 import Badge from "components/badge.component";
+import { removeTask } from "services/tasks";
+import { useAuth } from "contexts/auth-context";
 
 const getImg = (tag) => {
   if (tag === tags.GENERAL) {
@@ -78,6 +80,12 @@ const DateTag = ({ from, to }) => {
 };
 
 const Task = ({ task }) => {
+  const { user } = useAuth();
+
+  const remove = async () => {
+    await removeTask(user.uid, task);
+  };
+
   return (
     <div className="task mx-auto mt-10 bg-white relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200">
       <Badge tag={task.tag} />
@@ -85,7 +93,7 @@ const Task = ({ task }) => {
         <h1 className="task-title font-regular text-base">
           {task && task.title}
         </h1>
-        <button className="bg-transparent p-2">
+        <button className="bg-transparent p-2" onClick={remove}>
           <CloseIcon color="red" />
         </button>
       </div>

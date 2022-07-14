@@ -6,7 +6,7 @@ import { useAuth } from "contexts/auth-context";
 export const TasksContext = React.createContext();
 
 export const TasksProvider = ({ children }) => {
-  const [tasks, setTasks] = React.useState([]);
+  const [tasks, setTasks] = React.useState(null);
   const { user } = useAuth();
 
   React.useEffect(() => {
@@ -25,12 +25,12 @@ export const TasksProvider = ({ children }) => {
 
   const value = {
     tasks,
-    incompleteTasksCount: tasks.filter((task) => !task.completed).length,
+    incompleteTasksCount: tasks?.filter((task) => !task.completed).length,
   };
 
   return (
     <TasksContext.Provider value={value}>
-      {tasks.length !== 0 && children}
+      {tasks && children}
     </TasksContext.Provider>
   );
 };

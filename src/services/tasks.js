@@ -4,8 +4,8 @@ import {
   doc,
   setDoc,
   updateDoc,
-  deleteDoc,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 
 export const db = getFirestore(app);
@@ -34,9 +34,12 @@ export const updateTask = async (uid, task) => {
   }
 };
 
-export const removeTask = async (uid) => {
+export const removeTask = async (uid, data) => {
+  const key = `tasks-${uid}`;
   try {
-    await deleteDoc(doc(db, col, uid));
+    await updateDoc(doc(db, col, uid), {
+      [key]: arrayRemove(data),
+    });
   } catch (error) {
     console.log(error);
   }
