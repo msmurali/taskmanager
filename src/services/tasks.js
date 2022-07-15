@@ -4,8 +4,6 @@ import {
   doc,
   setDoc,
   updateDoc,
-  arrayUnion,
-  arrayRemove,
   deleteField,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
@@ -28,14 +26,11 @@ export const addTask = async (uid, data) => {
   }
 };
 
-export const updateTask = async (uid, oldData, newData) => {
-  const key = `tasks-${uid}`;
+export const updateTask = async (uid, data, id) => {
+  const key = id;
   try {
     await updateDoc(doc(db, col, uid), {
-      [key]: arrayRemove(oldData),
-    });
-    await updateDoc(doc(db, col, uid), {
-      [key]: arrayUnion(newData),
+      [key]: data,
     });
   } catch (error) {
     console.log(error);
