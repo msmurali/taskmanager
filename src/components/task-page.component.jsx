@@ -1,8 +1,11 @@
 import React from "react";
-import CheckIcon from "./icon.components/check.icon.component";
-import CloseIcon from "./icon.components/close.icon.component";
 import { Link, useParams } from "react-router-dom";
 import { TasksContext } from "contexts/tasks-context";
+import {
+  CheckIcon,
+  CloseIcon,
+  EditIcon,
+} from "components/icon.components/index";
 
 const TaskPage = () => {
   const { id } = useParams();
@@ -22,12 +25,14 @@ const TaskPage = () => {
             <span className="block text-xs font-normal">{task?.tag}</span>
           </h1>
           <div className="btn-container">
-            <button className="mr-4 inline-flex px-4 py-2 bg-purple-700 text-white rounded shadow-md active:shadow-none items-center justify-center">
-              <span className="inline md:hidden mr-0.5 md:mr-4">
-                <CheckIcon color="white" />
-              </span>
-              <span className="hidden md:inline">Edit</span>
-            </button>
+            <Link to={`/edit/${id}`}>
+              <button className="mr-4 inline-flex px-4 py-2 bg-purple-700 text-white rounded shadow-md active:shadow-none items-center justify-center">
+                <span className="inline md:hidden mr-0.5 md:mr-4">
+                  <EditIcon color="white" />
+                </span>
+                <span className="hidden md:inline">Edit</span>
+              </button>
+            </Link>
             <button className="inline-flex px-4 py-2 bg-green-600 text-white rounded shadow-md active:shadow-none items-center justify-center">
               <span className="inline md:hidden mr-0.5 md:mr-4">
                 <CheckIcon color="white" />

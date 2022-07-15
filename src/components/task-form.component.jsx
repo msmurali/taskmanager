@@ -105,7 +105,19 @@ const TaskForm = () => {
     navigateTo("/dashboard");
   };
 
-  const updateTaskInDb = () => {};
+  const updateTaskInDb = async () => {
+    console.log({
+      title,
+      tag,
+      from: Timestamp.fromDate(new Date(from)),
+      to: Timestamp.fromDate(new Date(to)),
+      createdAt: Timestamp.now(),
+      completed: false,
+      totalTasks: tasks.length,
+      completedTasks: 0,
+      tasks,
+    });
+  };
 
   const addTaskToDb = async () => {
     const task = {
