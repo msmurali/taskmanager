@@ -17,7 +17,11 @@ export const TasksProvider = ({ children }) => {
 
     const unsubscribe = onSnapshot(docRef, (snapshot) => {
       const data = snapshot.data();
-      setTasks(data[`tasks-${user.uid}`]);
+      if (data) {
+        setTasks(Object.keys(data).map((key) => ({ ...data[key], id: key })));
+      } else {
+        setTasks([]);
+      }
     });
 
     return unsubscribe;
