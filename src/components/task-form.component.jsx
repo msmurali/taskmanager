@@ -3,7 +3,7 @@ import { Tag } from "constants/enums";
 import CloseIcon from "components/icon.components/close.icon.component";
 import { Timestamp } from "@firebase/firestore";
 import { useAuth } from "contexts/auth-context";
-import { addTask as addDoc } from "services/tasks";
+import { addTask as addDoc, updateTask as updateDoc } from "services/tasks";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import LoadingIcon from "components/icon.components/loading.icon.component";
 import { TasksContext } from "contexts/tasks-context";
@@ -43,14 +43,21 @@ const TaskForm = () => {
   const { tasks: tasksCol } = React.useContext(TasksContext);
   let { id } = useParams();
   id = parseInt(id);
+  const previousData = tasksCol[id] || null;
   const [tag, setTag] = React.useState(
-    pathname.includes("edit") ? tasksCol[id].tag : Tag.GENERAL
+    pathname.includes("edit") ? tasksCol[id]?.tag : Tag.GENERAL
   );
   const [title, setTitle] = React.useState(
-    pathname.includes("edit") ? tasksCol[id].title : ""
+    pathname.includes("edit") ? tasksCol[id]?.title : ""
   );
   const [tasks, setTasks] = React.useState(
-    pathname.includes("edit") ? tasksCol[id].tasks : []
+    pathname.includes("edit") ? tasksCol[id]?.tasks : []
+  );
+  const [createdAt, _] = React.useState(
+    pathname.includes("edit") ? tasksCol[id]?.createdAt : Timestamp.now()
+  );
+  const [completedTasks, __] = React.useState(
+    pathname.includes("edit") ? tasksCol[id]?.completedTasks : 0
   );
   const [from, setFrom] = React.useState(
     pathname.includes("edit")
@@ -106,17 +113,19 @@ const TaskForm = () => {
   };
 
   const updateTaskInDb = async () => {
-    console.log({
+    const currData = {
       title,
       tag,
       from: Timestamp.fromDate(new Date(from)),
       to: Timestamp.fromDate(new Date(to)),
-      createdAt: Timestamp.now(),
-      completed: false,
+      createdAt,
+      completed: tasks.length === completedTasks,
       totalTasks: tasks.length,
-      completedTasks: 0,
+      completedTasks: completedTasks,
       tasks,
-    });
+    };
+
+    await updateDoc(user.uid, previousData, currData);
   };
 
   const addTaskToDb = async () => {
@@ -125,7 +134,7 @@ const TaskForm = () => {
       tag,
       from: Timestamp.fromDate(new Date(from)),
       to: Timestamp.fromDate(new Date(to)),
-      createdAt: Timestamp.now(),
+      createdAt,
       completed: false,
       totalTasks: tasks.length,
       completedTasks: 0,
