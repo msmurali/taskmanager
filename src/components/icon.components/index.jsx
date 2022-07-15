@@ -1,6 +1,7 @@
 import AddIcon from "./add.icon.component";
 import CheckIcon from "./check.icon.component";
 import CloseIcon from "./close.icon.component";
+import EditIcon from "./edit.icon.component";
 import EntertainmentIcon from "./entertainment.icon.component";
 import GearIcon from "./gear.icon.component";
 import GeneralIcon from "./general.icon.component";
@@ -18,6 +19,7 @@ export {
   AddIcon,
   CheckIcon,
   CloseIcon,
+  EditIcon,
   EntertainmentIcon,
   GearIcon,
   GeneralIcon,
