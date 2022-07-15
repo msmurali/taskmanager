@@ -6,11 +6,45 @@ import {
   CloseIcon,
   EditIcon,
 } from "components/icon.components/index";
+import { updateTask } from "services/tasks";
+import { useAuth } from "contexts/auth-context";
 
 const TaskPage = () => {
   const { id } = useParams();
+  console.log(id);
   const { tasks } = React.useContext(TasksContext);
-  const [task, setTask] = React.useState(tasks[id]);
+  const [task, setTask] = React.useState(() => {
+    return tasks.filter((task) => task.id === id)[0];
+  });
+  const { user } = useAuth();
+
+  const markasCompleted = async () => {
+    const id = task.id;
+
+    task.completed = true;
+    task.completedTasks = task.tasks.length;
+    task.tasks = task.tasks.map((task) => ({ ...task, completed: true }));
+
+    await updateTask(user.uid, task, id);
+  };
+
+  const updateTasksArray = async (index, completed) => {
+    const id = task.id;
+
+    if (completed && !task.tasks[index].completed) {
+      task.tasks[index].completed = completed;
+      task.completedTasks += 1;
+    }
+
+    if (!completed && task.tasks[index].completed) {
+      task.tasks[index].completed = completed;
+      task.completedTasks -= 1;
+    }
+
+    task.completed = task.completedTasks === task.totalTasks;
+
+    await updateTask(user.uid, task, id);
+  };
 
   React.useEffect(() => {
     setTask(tasks[id]);
@@ -33,7 +67,10 @@ const TaskPage = () => {
                 <span className="hidden md:inline">Edit</span>
               </button>
             </Link>
-            <button className="inline-flex px-4 py-2 bg-green-600 text-white rounded shadow-md active:shadow-none items-center justify-center">
+            <button
+              onClick={markasCompleted}
+              className="inline-flex px-4 py-2 bg-green-600 text-white rounded shadow-md active:shadow-none items-center justify-center"
+            >
               <span className="inline md:hidden mr-0.5 md:mr-4">
                 <CheckIcon color="white" />
               </span>
@@ -73,11 +110,17 @@ const TaskPage = () => {
                   {task?.text}
                 </p>
                 <div className="w-full btn-container flex justify-between items-center mt-4">
-                  <button className="w-1/2 bg-transparent inline-flex justify-center bg-green-300 rounded px-4 py-2 shadow-md active:shadow-none">
+                  <button
+                    onClick={() => updateTasksArray(index, true)}
+                    className="w-1/2 bg-transparent inline-flex justify-center bg-green-300 rounded px-4 py-2 shadow-md active:shadow-none"
+                  >
                     <CheckIcon />
                   </button>
                   <span className="w-4"></span>
-                  <button className="w-1/2 bg-transparent inline-flex justify-center bg-red-300 rounded px-4 py-2 shadow-md active:shadow-none">
+                  <button
+                    onClick={() => updateTasksArray(index, false)}
+                    className="w-1/2 bg-transparent inline-flex justify-center bg-red-300 rounded px-4 py-2 shadow-md active:shadow-none"
+                  >
                     <CloseIcon />
                   </button>
                 </div>

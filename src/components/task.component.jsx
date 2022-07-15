@@ -46,7 +46,7 @@ const Task = ({ task, id }) => {
     <div className="task mx-auto mt-10 bg-white relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200 cursor-pointer">
       <Badge tag={task.tag} />
       <div className="flex justify-between items-center mt-5">
-        <Link to={`/task/${id}`}>
+        <Link to={`/task/${task.id}`}>
           <h1 className="task-title font-regular text-base">
             {task && task.title}
           </h1>
@@ -55,7 +55,7 @@ const Task = ({ task, id }) => {
           <CloseIcon color="red" />
         </button>
       </div>
-      <Link to={`/task/${id}`}>
+      <Link to={`/task/${task.id}`}>
         <div
           className="task-img w-100 h-40 rounded-lg my-4 bg-cover"
           style={{

@@ -39,62 +39,52 @@ const TaskInput = ({ id, val, removeTask, setVal }) => {
 };
 
 const TaskForm = () => {
+  const { id } = useParams();
   const { pathname } = useLocation();
   const { tasks: tasksCol } = React.useContext(TasksContext);
-  let { id } = useParams();
-  id = parseInt(id);
-  const previousData = tasksCol[id] || null;
-  const [tag, setTag] = React.useState(
-    pathname.includes("edit") ? tasksCol[id]?.tag : Tag.GENERAL
-  );
-  const [title, setTitle] = React.useState(
-    pathname.includes("edit") ? tasksCol[id]?.title : ""
-  );
-  const [tasks, setTasks] = React.useState(
-    pathname.includes("edit") ? tasksCol[id]?.tasks : []
-  );
-  const [createdAt, _] = React.useState(
-    pathname.includes("edit") ? tasksCol[id]?.createdAt : Timestamp.now()
-  );
-  const [completedTasks, __] = React.useState(
-    pathname.includes("edit") ? tasksCol[id]?.completedTasks : 0
-  );
-  const [from, setFrom] = React.useState(
-    pathname.includes("edit")
-      ? new Date(tasksCol[id].from.seconds * 1000)
-          .toISOString()
-          .substring(0, 10)
-      : ""
-  );
-  const [to, setTo] = React.useState(
-    pathname.includes("edit")
-      ? new Date(tasksCol[id].to.seconds * 1000).toISOString().substring(0, 10)
-      : ""
-  );
+
+  const [task, setTask] = React.useState(() => {
+    if (pathname.includes("edit")) {
+      const data = tasksCol.filter((task) => task.id === id)[0];
+      return data;
+    } else {
+      return {
+        title: "",
+        tag: "general",
+        tasks: [],
+        from: "",
+        to: "",
+        completed: false,
+        completedTasks: 0,
+        totalTasks: 0,
+      };
+    }
+  });
+
   const [loading, setLoading] = React.useState(false);
   const { user } = useAuth();
   const navigateTo = useNavigate();
 
-  const changeTag = (newTag) => setTag(newTag);
+  const changeTag = (newTag) => setTask({ ...task, tag: newTag });
 
-  const titleHandler = (e) => setTitle(e.target.value);
+  const titleHandler = (e) => setTask({ ...task, title: e.target.value });
 
   const addTask = () => {
-    const newTasks = [...tasks];
+    const newTasks = [...task.tasks];
     newTasks.push({ text: "", completed: false });
-    setTasks(newTasks);
+    setTask({ ...task, tasks: newTasks });
   };
 
   const removeTask = (id) => {
-    const newTasks = [...tasks];
+    const newTasks = [...task.tasks];
     newTasks.splice(id);
-    setTasks(newTasks);
+    setTask({ ...task, tasks: newTasks });
   };
 
   const updateTask = (id, text) => {
-    const newTasks = [...tasks];
+    const newTasks = [...task.tasks];
     newTasks[id] = { ...newTasks[id], text };
-    setTasks(newTasks);
+    setTask({ ...task, tasks: newTasks });
   };
 
   const submitHandler = async (e) => {
@@ -102,46 +92,14 @@ const TaskForm = () => {
     setLoading(true);
 
     if (pathname.includes("edit")) {
-      await updateTaskInDb();
+      await updateDoc(user.uid, task, task.id);
     } else {
-      await addTaskToDb();
+      await addDoc(user.uid, { ...task, createdAt: Timestamp.now() });
     }
 
     setLoading(false);
     resetFields();
     navigateTo("/dashboard");
-  };
-
-  const updateTaskInDb = async () => {
-    const currData = {
-      title,
-      tag,
-      from: Timestamp.fromDate(new Date(from)),
-      to: Timestamp.fromDate(new Date(to)),
-      createdAt,
-      completed: tasks.length === completedTasks,
-      totalTasks: tasks.length,
-      completedTasks: completedTasks,
-      tasks,
-    };
-
-    await updateDoc(user.uid, previousData, currData);
-  };
-
-  const addTaskToDb = async () => {
-    const task = {
-      title,
-      tag,
-      from: Timestamp.fromDate(new Date(from)),
-      to: Timestamp.fromDate(new Date(to)),
-      createdAt,
-      completed: false,
-      totalTasks: tasks.length,
-      completedTasks: 0,
-      tasks,
-    };
-
-    await addDoc(user.uid, task);
   };
 
   const discardHandler = () => {
@@ -155,11 +113,14 @@ const TaskForm = () => {
   };
 
   const resetFields = () => {
-    setTitle("");
-    setTag("general");
-    setTasks([]);
-    setFrom("");
-    setTo("");
+    setTask({
+      ...task,
+      title: "",
+      tag: "general",
+      tasks: [],
+      from: "",
+      to: "",
+    });
   };
 
   return (
@@ -180,7 +141,7 @@ const TaskForm = () => {
               className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
               minLength="3"
               required
-              value={title}
+              value={task.title}
               onChange={titleHandler}
             />
           </div>
@@ -189,7 +150,7 @@ const TaskForm = () => {
             <div className="flex justify-center md:justify-start items-center flex-wrap">
               <div
                 className={`mr-4 inline-block cursor-pointer tag general-tag font-medium ${
-                  tag === Tag.GENERAL
+                  task.tag === Tag.GENERAL
                     ? "text-green-700 bg-green-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -199,7 +160,7 @@ const TaskForm = () => {
               </div>
               <div
                 className={`mx-4 my-4 inline-block cursor-pointer tag entertainment-tag font-medium  ${
-                  tag === Tag.ENTERTAINMENT
+                  task.tag === Tag.ENTERTAINMENT
                     ? "text-sky-700 bg-sky-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -209,7 +170,7 @@ const TaskForm = () => {
               </div>
               <div
                 className={`mx-4 my-4 inline-block cursor-pointer tag learning-tag font-medium  ${
-                  tag === Tag.LEARNING
+                  task.tag === Tag.LEARNING
                     ? "text-yellow-700 bg-yellow-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -219,7 +180,7 @@ const TaskForm = () => {
               </div>
               <div
                 className={`mx-4  my-4 inline-block cursor-pointer tag shopping-tag font-medium  ${
-                  tag === Tag.SHOPPING
+                  task.tag === Tag.SHOPPING
                     ? "text-purple-700 bg-purple-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -229,7 +190,7 @@ const TaskForm = () => {
               </div>
               <div
                 className={`mx-4 my-4 inline-block cursor-pointer tag travel-tag font-medium  ${
-                  tag === Tag.TRAVEL
+                  task.tag === Tag.TRAVEL
                     ? "text-pink-700 bg-pink-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -239,7 +200,7 @@ const TaskForm = () => {
               </div>
               <div
                 className={`mx-4 my-4 inline-block cursor-pointer tag urgent-tag font-medium  ${
-                  tag === Tag.URGENT
+                  task.tag === Tag.URGENT
                     ? "text-red-700 bg-red-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -249,7 +210,7 @@ const TaskForm = () => {
               </div>
               <div
                 className={`ml-4 my-4 inline-block cursor-pointer tag work-tag font-medium ${
-                  tag === Tag.WORK
+                  task.tag === Tag.WORK
                     ? "text-blue-700 bg-blue-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -271,8 +232,8 @@ const TaskForm = () => {
                 id="from"
                 className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
                 required
-                value={from}
-                onChange={(e) => setFrom(e.target.value)}
+                value={task.from}
+                onChange={(e) => setTask({ ...task, from: e.target.value })}
               />
             </div>
             <div className="w-full md:w-2/5">
@@ -285,13 +246,13 @@ const TaskForm = () => {
                 id="to"
                 className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
                 required
-                value={to}
-                onChange={(e) => setTo(e.target.value)}
+                value={task.to}
+                onChange={(e) => setTask({ ...task, to: e.target.value })}
               />
             </div>
           </div>
 
-          {tasks.map((task, index) => (
+          {task.tasks.map((task, index) => (
             <TaskInput
               id={index}
               key={index}

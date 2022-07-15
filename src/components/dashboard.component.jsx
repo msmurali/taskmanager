@@ -21,9 +21,7 @@ const Dashboard = () => {
           {data &&
             data.tasks
               .filter((task) => !task.completed)
-              .map((task, index) => (
-                <Task task={task} key={index} id={index} />
-              ))}
+              .map((task, index) => <Task task={task} key={index} />)}
         </div>
       </div>
 
@@ -39,9 +37,7 @@ const Dashboard = () => {
           {data &&
             data.tasks
               .filter((task) => task.completed)
-              .map((task, index) => (
-                <Task task={task} key={index} id={index} />
-              ))}
+              .map((task, index) => <Task task={task} key={index} />)}
         </div>
       </div>
     </div>
