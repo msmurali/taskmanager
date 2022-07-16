@@ -1,5 +1,5 @@
 import React from "react";
-import { Tag } from "constants/enums";
+import { Tag, TagColorDark, TagColorLight } from "constants/enums";
 import { CloseIcon, LoadingIcon } from "components/icon.components/index";
 import { Timestamp } from "@firebase/firestore";
 import { useAuth } from "contexts/auth-context";
@@ -173,8 +173,22 @@ const TaskForm = ({ action }) => {
           </div>
           <div className="form-group mt-8">
             <label className="block text-sm mb-1">Tag</label>
-            <div className="flex justify-center md:justify-start items-center flex-wrap">
-              <div
+            <div className="flex justify-start items-center flex-wrap">
+              {Object.keys(Tag).map((key) => (
+                <div
+                  className={`my-4 mr-4 inline-block cursor-pointer tag general-tag font-medium ${
+                    tag === Tag[key]
+                      ? `shadow-none text-${TagColorDark[key]} bg-${TagColorLight[key]}`
+                      : "shadow-md text-gray-700 bg-gray-200"
+                  }  px-2 py-1 rounded`}
+                  onClick={() => changeTag(Tag[key])}
+                >
+                  {`${Tag[key][0].toUpperCase()}${Tag[key]
+                    .substring(1)
+                    .toLowerCase()}`}
+                </div>
+              ))}
+              {/* <div
                 className={`inline-block cursor-pointer tag general-tag font-medium ${
                   tag === Tag.GENERAL
                     ? "text-green-700 bg-green-200 shadow-none"
@@ -243,7 +257,7 @@ const TaskForm = ({ action }) => {
                 onClick={() => changeTag(Tag.WORK)}
               >
                 Work
-              </div>
+              </div> */}
             </div>
           </div>
 
