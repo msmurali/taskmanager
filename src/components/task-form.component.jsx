@@ -53,7 +53,7 @@ const TaskForm = ({ action }) => {
     action === "edit" ? task?.title : ""
   );
   const [tag, setTag] = React.useState(() =>
-    action === "edit" ? task?.tag : ""
+    action === "edit" ? task?.tag : Tag.GENERAL
   );
   const [tasks, setTasks] = React.useState(() =>
     action === "edit" ? task?.tasks : []
@@ -175,8 +175,8 @@ const TaskForm = ({ action }) => {
             <label className="block text-sm mb-1">Tag</label>
             <div className="flex justify-center md:justify-start items-center flex-wrap">
               <div
-                className={`mr-4 inline-block cursor-pointer tag general-tag font-medium ${
-                  task.tag === Tag.GENERAL
+                className={`inline-block cursor-pointer tag general-tag font-medium ${
+                  tag === Tag.GENERAL
                     ? "text-green-700 bg-green-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -186,7 +186,7 @@ const TaskForm = ({ action }) => {
               </div>
               <div
                 className={`mx-4 my-4 inline-block cursor-pointer tag entertainment-tag font-medium  ${
-                  task.tag === Tag.ENTERTAINMENT
+                  tag === Tag.ENTERTAINMENT
                     ? "text-sky-700 bg-sky-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -196,7 +196,7 @@ const TaskForm = ({ action }) => {
               </div>
               <div
                 className={`mx-4 my-4 inline-block cursor-pointer tag learning-tag font-medium  ${
-                  task.tag === Tag.LEARNING
+                  tag === Tag.LEARNING
                     ? "text-yellow-700 bg-yellow-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -206,7 +206,7 @@ const TaskForm = ({ action }) => {
               </div>
               <div
                 className={`mx-4  my-4 inline-block cursor-pointer tag shopping-tag font-medium  ${
-                  task.tag === Tag.SHOPPING
+                  tag === Tag.SHOPPING
                     ? "text-purple-700 bg-purple-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -216,7 +216,7 @@ const TaskForm = ({ action }) => {
               </div>
               <div
                 className={`mx-4 my-4 inline-block cursor-pointer tag travel-tag font-medium  ${
-                  task.tag === Tag.TRAVEL
+                  tag === Tag.TRAVEL
                     ? "text-pink-700 bg-pink-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -226,7 +226,7 @@ const TaskForm = ({ action }) => {
               </div>
               <div
                 className={`mx-4 my-4 inline-block cursor-pointer tag urgent-tag font-medium  ${
-                  task.tag === Tag.URGENT
+                  tag === Tag.URGENT
                     ? "text-red-700 bg-red-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
@@ -235,8 +235,8 @@ const TaskForm = ({ action }) => {
                 Urgent
               </div>
               <div
-                className={`ml-4 my-4 inline-block cursor-pointer tag work-tag font-medium ${
-                  task.tag === Tag.WORK
+                className={`my-4 inline-block cursor-pointer tag work-tag font-medium ${
+                  tag === Tag.WORK
                     ? "text-blue-700 bg-blue-200 shadow-none"
                     : "text-gray-700 bg-gray-200 shadow-md"
                 }  px-2 py-1 rounded`}
