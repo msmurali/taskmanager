@@ -11,11 +11,16 @@ import { useAuth } from "contexts/auth-context";
 
 const TaskPage = () => {
   const { id } = useParams();
-  console.log(id);
+
   const { tasks } = React.useContext(TasksContext);
-  const [task, setTask] = React.useState(() => {
-    return tasks.filter((task) => task.id === id)[0];
-  });
+
+  const getTask = React.useCallback(() => {
+    const data = tasks.filter((task) => task.id === id)[0];
+    return data;
+  }, [tasks, id]);
+
+  const [task, setTask] = React.useState(getTask);
+
   const { user } = useAuth();
 
   const markasCompleted = async () => {
@@ -47,8 +52,8 @@ const TaskPage = () => {
   };
 
   React.useEffect(() => {
-    setTask(tasks[id]);
-  }, [id, tasks]);
+    setTask(getTask);
+  }, [getTask]);
 
   return (
     task && (

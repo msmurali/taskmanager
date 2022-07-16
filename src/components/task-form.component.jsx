@@ -1,11 +1,10 @@
 import React from "react";
 import { Tag } from "constants/enums";
-import CloseIcon from "components/icon.components/close.icon.component";
+import { CloseIcon, LoadingIcon } from "components/icon.components/index";
 import { Timestamp } from "@firebase/firestore";
 import { useAuth } from "contexts/auth-context";
 import { addTask as addDoc, updateTask as updateDoc } from "services/tasks";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-import LoadingIcon from "components/icon.components/loading.icon.component";
+import { useNavigate, useParams } from "react-router-dom";
 import { TasksContext } from "contexts/tasks-context";
 
 const TaskInput = ({ id, val, removeTask, setVal }) => {
@@ -38,63 +37,93 @@ const TaskInput = ({ id, val, removeTask, setVal }) => {
   );
 };
 
-const TaskForm = () => {
+const TaskForm = ({ action }) => {
   const { id } = useParams();
-  const { pathname } = useLocation();
-  const { tasks: tasksCol } = React.useContext(TasksContext);
 
-  const [task, setTask] = React.useState(() => {
-    if (pathname.includes("edit")) {
-      const data = tasksCol.filter((task) => task.id === id)[0];
-      return data;
-    } else {
-      return {
-        title: "",
-        tag: "general",
-        tasks: [],
-        from: "",
-        to: "",
-        completed: false,
-        completedTasks: 0,
-        totalTasks: 0,
-      };
-    }
-  });
+  const { tasks: tasksCollection } = React.useContext(TasksContext);
+
+  const getTask = React.useCallback(() => {
+    const data = tasksCollection.filter((task) => task.id === id)[0];
+    return data;
+  }, [tasksCollection, id]);
+
+  const task = getTask();
+
+  const [title, setTitle] = React.useState(() =>
+    action === "edit" ? task?.title : ""
+  );
+  const [tag, setTag] = React.useState(() =>
+    action === "edit" ? task?.tag : ""
+  );
+  const [tasks, setTasks] = React.useState(() =>
+    action === "edit" ? task?.tasks : []
+  );
+
+  const [from, setFrom] = React.useState(() =>
+    action === "edit"
+      ? new Date(task?.from.seconds * 1000).toISOString().substring(0, 10)
+      : ""
+  );
+
+  const [to, setTo] = React.useState(() =>
+    action === "edit"
+      ? new Date(task?.from.seconds * 1000).toISOString().substring(0, 10)
+      : ""
+  );
+
+  const createdAt = task?.createdAt;
 
   const [loading, setLoading] = React.useState(false);
+
   const { user } = useAuth();
+
   const navigateTo = useNavigate();
 
-  const changeTag = (newTag) => setTask({ ...task, tag: newTag });
+  const changeTag = (newTag) => setTag(newTag);
 
-  const titleHandler = (e) => setTask({ ...task, title: e.target.value });
+  const changeTitle = (e) => setTitle(e.target.value);
 
   const addTask = () => {
-    const newTasks = [...task.tasks];
+    const newTasks = [...tasks];
     newTasks.push({ text: "", completed: false });
-    setTask({ ...task, tasks: newTasks });
+    setTasks(newTasks);
   };
 
   const removeTask = (id) => {
-    const newTasks = [...task.tasks];
+    const newTasks = [...tasks];
     newTasks.splice(id);
-    setTask({ ...task, tasks: newTasks });
+    setTasks(newTasks);
   };
 
   const updateTask = (id, text) => {
-    const newTasks = [...task.tasks];
+    const newTasks = [...tasks];
     newTasks[id] = { ...newTasks[id], text };
-    setTask({ ...task, tasks: newTasks });
+    setTasks(newTasks);
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    if (pathname.includes("edit")) {
-      await updateDoc(user.uid, task, task.id);
+    const completedTasks = tasks.filter((task) => task.completed).length;
+    const totalTasks = tasks.length;
+    const data = {
+      title,
+      tag,
+      id,
+      from: Timestamp.fromDate(new Date(from)),
+      to: Timestamp.fromDate(new Date(to)),
+      createdAt: action === "edit" ? createdAt : Timestamp.now(),
+      tasks,
+      totalTasks: tasks.length,
+      completedTasks,
+      completed: totalTasks === completedTasks,
+    };
+
+    if (action === "edit") {
+      await updateDoc(user.uid, data, id);
     } else {
-      await addDoc(user.uid, { ...task, createdAt: Timestamp.now() });
+      await addDoc(user.uid, data);
     }
 
     setLoading(false);
@@ -113,21 +142,18 @@ const TaskForm = () => {
   };
 
   const resetFields = () => {
-    setTask({
-      ...task,
-      title: "",
-      tag: "general",
-      tasks: [],
-      from: "",
-      to: "",
-    });
+    setTitle("");
+    setTag("");
+    setFrom("");
+    setTo("");
+    setTasks([]);
   };
 
   return (
     <div className="task-form w-full h-full overflow-y-auto font-primary p-8">
       <React.Fragment>
         <h1 className="form-title text-lg font-medium">
-          {pathname.includes("edit") ? "Edit Task" : "Create task"}
+          {action === "edit" ? "Edit Task" : "Create task"}
         </h1>
         <form onSubmit={submitHandler}>
           <div className="form-group mt-8">
@@ -141,8 +167,8 @@ const TaskForm = () => {
               className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
               minLength="3"
               required
-              value={task.title}
-              onChange={titleHandler}
+              value={title}
+              onChange={changeTitle}
             />
           </div>
           <div className="form-group mt-8">
@@ -232,8 +258,8 @@ const TaskForm = () => {
                 id="from"
                 className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
                 required
-                value={task.from}
-                onChange={(e) => setTask({ ...task, from: e.target.value })}
+                value={from}
+                onChange={(e) => setFrom(e.target.value)}
               />
             </div>
             <div className="w-full md:w-2/5">
@@ -246,13 +272,13 @@ const TaskForm = () => {
                 id="to"
                 className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
                 required
-                value={task.to}
-                onChange={(e) => setTask({ ...task, to: e.target.value })}
+                value={to}
+                onChange={(e) => setTo(e.target.value)}
               />
             </div>
           </div>
 
-          {task.tasks.map((task, index) => (
+          {tasks.map((task, index) => (
             <TaskInput
               id={index}
               key={index}
@@ -286,7 +312,7 @@ const TaskForm = () => {
                 <LoadingIcon color="white" />
               </span>
               <span className={!loading ? "inline-block" : "hidden"}>
-                {pathname.includes("edit") ? "Save" : "Create"}
+                {action === "edit" ? "Save" : "Create"}
               </span>
             </button>
           </div>

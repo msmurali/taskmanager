@@ -7,6 +7,7 @@ import GearIcon from "./gear.icon.component";
 import GeneralIcon from "./general.icon.component";
 import LearningIcon from "./learning.icon.component";
 import LogoutIcon from "./logout.icon.component";
+import LoadingIcon from "./loading.icon.component";
 import SearchIcon from "./search.icon.component";
 import SettingsIcon from "./settings.icon.component";
 import ShoppingIcon from "./shopping.icon.component";
@@ -25,6 +26,7 @@ export {
   GeneralIcon,
   LearningIcon,
   LogoutIcon,
+  LoadingIcon,
   SearchIcon,
   SettingsIcon,
   ShoppingIcon,

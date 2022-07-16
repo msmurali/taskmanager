@@ -15,11 +15,11 @@ export const addTask = async (uid, data) => {
   const key = uuid();
   try {
     await updateDoc(doc(db, col, uid), {
-      [key]: { ...data, id: [key] },
+      [key]: { ...data, id: key },
     });
   } catch (error) {
     if (error.code === "not-found") {
-      await setDoc(doc(db, col, uid), { [key]: { ...data, id: [key] } });
+      await setDoc(doc(db, col, uid), { [key]: { ...data, id: key } });
     } else {
       console.log(error);
     }
