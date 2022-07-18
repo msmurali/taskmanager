@@ -8,25 +8,28 @@ import TaskPage from "components/task-page.component";
 import TaskForm from "components/task-form.component";
 import { Routes, Route } from "react-router-dom";
 import Home from "components/home.component";
+import { ThemeProvider } from "contexts/theme-context";
 
 function App() {
   return (
     <AuthProvider>
-      <TasksProvider>
-        <div className="app h-screen mx-auto">
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="create" element={<TaskForm action="create" />} />
-              <Route path="task/:id" element={<TaskPage />} />
-              <Route path="edit/:id" element={<TaskForm action="edit" />} />
-            </Route>
-            <Route path="login" element={<LoginForm />} />
-            <Route path="register" element={<RegisterForm />} />
-          </Routes>
-        </div>
-      </TasksProvider>
+      <ThemeProvider>
+        <TasksProvider>
+          <div className="app h-screen mx-auto">
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />}>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="create" element={<TaskForm action="create" />} />
+                <Route path="task/:id" element={<TaskPage />} />
+                <Route path="edit/:id" element={<TaskForm action="edit" />} />
+              </Route>
+              <Route path="login" element={<LoginForm />} />
+              <Route path="register" element={<RegisterForm />} />
+            </Routes>
+          </div>
+        </TasksProvider>
+      </ThemeProvider>
     </AuthProvider>
   );
 }
