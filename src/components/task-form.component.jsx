@@ -15,6 +15,7 @@ const TaskInput = ({ id, val, removeTask, setVal }) => {
           Task
         </label>
         <button
+          type="button"
           className="delete-btn p-2 bg-transparent"
           onClick={() => removeTask(id)}
         >
@@ -91,7 +92,7 @@ const TaskForm = ({ action }) => {
 
   const removeTask = (id) => {
     const newTasks = [...tasks];
-    newTasks.splice(id);
+    newTasks.splice(id, 1);
     setTasks(newTasks);
   };
 
@@ -176,6 +177,7 @@ const TaskForm = ({ action }) => {
             <div className="flex justify-start items-center flex-wrap">
               {Object.keys(Tag).map((key) => (
                 <div
+                  key={key}
                   className={`my-4 mr-4 inline-block cursor-pointer tag general-tag font-medium ${
                     tag === Tag[key]
                       ? `shadow-none text-${TagColorDark[key]} bg-${TagColorLight[key]}`
@@ -188,76 +190,6 @@ const TaskForm = ({ action }) => {
                     .toLowerCase()}`}
                 </div>
               ))}
-              {/* <div
-                className={`inline-block cursor-pointer tag general-tag font-medium ${
-                  tag === Tag.GENERAL
-                    ? "text-green-700 bg-green-200 shadow-none"
-                    : "text-gray-700 bg-gray-200 shadow-md"
-                }  px-2 py-1 rounded`}
-                onClick={() => changeTag(Tag.GENERAL)}
-              >
-                General
-              </div>
-              <div
-                className={`mx-4 my-4 inline-block cursor-pointer tag entertainment-tag font-medium  ${
-                  tag === Tag.ENTERTAINMENT
-                    ? "text-sky-700 bg-sky-200 shadow-none"
-                    : "text-gray-700 bg-gray-200 shadow-md"
-                }  px-2 py-1 rounded`}
-                onClick={() => changeTag(Tag.ENTERTAINMENT)}
-              >
-                Entertainment
-              </div>
-              <div
-                className={`mx-4 my-4 inline-block cursor-pointer tag learning-tag font-medium  ${
-                  tag === Tag.LEARNING
-                    ? "text-yellow-700 bg-yellow-200 shadow-none"
-                    : "text-gray-700 bg-gray-200 shadow-md"
-                }  px-2 py-1 rounded`}
-                onClick={() => changeTag(Tag.LEARNING)}
-              >
-                Learning
-              </div>
-              <div
-                className={`mx-4  my-4 inline-block cursor-pointer tag shopping-tag font-medium  ${
-                  tag === Tag.SHOPPING
-                    ? "text-purple-700 bg-purple-200 shadow-none"
-                    : "text-gray-700 bg-gray-200 shadow-md"
-                }  px-2 py-1 rounded`}
-                onClick={() => changeTag(Tag.SHOPPING)}
-              >
-                Shopping
-              </div>
-              <div
-                className={`mx-4 my-4 inline-block cursor-pointer tag travel-tag font-medium  ${
-                  tag === Tag.TRAVEL
-                    ? "text-pink-700 bg-pink-200 shadow-none"
-                    : "text-gray-700 bg-gray-200 shadow-md"
-                }  px-2 py-1 rounded`}
-                onClick={() => changeTag(Tag.TRAVEL)}
-              >
-                Travel
-              </div>
-              <div
-                className={`mx-4 my-4 inline-block cursor-pointer tag urgent-tag font-medium  ${
-                  tag === Tag.URGENT
-                    ? "text-red-700 bg-red-200 shadow-none"
-                    : "text-gray-700 bg-gray-200 shadow-md"
-                }  px-2 py-1 rounded`}
-                onClick={() => changeTag(Tag.URGENT)}
-              >
-                Urgent
-              </div>
-              <div
-                className={`my-4 inline-block cursor-pointer tag work-tag font-medium ${
-                  tag === Tag.WORK
-                    ? "text-blue-700 bg-blue-200 shadow-none"
-                    : "text-gray-700 bg-gray-200 shadow-md"
-                }  px-2 py-1 rounded`}
-                onClick={() => changeTag(Tag.WORK)}
-              >
-                Work
-              </div> */}
             </div>
           </div>
 
@@ -276,7 +208,7 @@ const TaskForm = ({ action }) => {
                 onChange={(e) => setFrom(e.target.value)}
               />
             </div>
-            <div className="w-full md:w-2/5">
+            <div className="w-full md:w-2/5 mt-8 md:mt-0">
               <label htmlFor="title" className="block text-sm mb-1">
                 To
               </label>
