@@ -1,6 +1,8 @@
 import React from "react";
 import { register } from "services/auth.js";
 import { Link } from "react-router-dom";
+import { useTheme } from "contexts/theme-context";
+import { ThemeMode } from "contexts/theme-context";
 
 const RegisterForm = () => {
   const [email, setEmail] = React.useState("");
@@ -8,6 +10,7 @@ const RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
+  const { theme } = useTheme();
 
   const changeHandler = (e) => {
     if (e.target.name === "email") {
@@ -46,7 +49,11 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="register-form w-full h-full overflow-y-auto font-primary">
+    <div
+      className={`register-form w-full h-full overflow-y-auto font-primary ${
+        theme === ThemeMode.LIGHT ? "text-black" : "text-white"
+      }`}
+    >
       <form
         onSubmit={submitHandler}
         className="w-full h-full p-6 md:w-1/2 mx-auto flex flex-col justify-evenly items-stretch"
@@ -65,7 +72,7 @@ const RegisterForm = () => {
             type="email"
             name="email"
             id="email"
-            className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+            className="text-black even:bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             required
             value={email}
             onChange={changeHandler}
@@ -79,7 +86,7 @@ const RegisterForm = () => {
             type="password"
             name="password"
             id="password"
-            className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+            className="text-black bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             required
             value={password}
             onChange={changeHandler}
@@ -94,7 +101,7 @@ const RegisterForm = () => {
             type="password"
             name="confirmPassword"
             id="confirmPassword"
-            className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+            className="text-black bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             required
             value={confirmPassword}
             minLength="6"

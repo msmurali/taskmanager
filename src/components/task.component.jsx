@@ -9,7 +9,23 @@ import { useTheme, ThemeMode } from "contexts/theme-context";
 
 const Tag = ({ tag }) => {
   const getClassNames = () => {
-    return `text-${tag}-tag bg-${tag}-tag`;
+    if (tag === Tag.GENERAL) {
+      return `text-green-700 bg-green-200`;
+    } else if (tag === Tag.ENTERTAINMENT) {
+      return `text-sky-700 bg-sky-200`;
+    } else if (tag === Tag.LEARNING) {
+      return `text-yellow-700 bg-yellow-200`;
+    } else if (tag === Tag.SHOPPING) {
+      return `text-purple-700 bg-purple-200`;
+    } else if (tag === Tag.TRAVEL) {
+      return `text-pink-700 bg-pink-200`;
+    } else if (tag === Tag.URGENT) {
+      return `text-red-700 bg-red-200`;
+    } else if (tag === Tag.WORK) {
+      return `text-blue-700 bg-blue-200`;
+    } else {
+      return `text-green-700 bg-green-200`;
+    }
   };
 
   return (
@@ -47,7 +63,9 @@ const Task = ({ task }) => {
   return (
     <div
       className={`task mx-auto mt-10 ${
-        theme === ThemeMode.LIGHT ? "bg-white" : "bg-gray-800"
+        theme === ThemeMode.LIGHT
+          ? "bg-white text-black"
+          : "bg-gray-800 text-white"
       } relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200 cursor-pointer`}
     >
       <Badge tag={task.tag} />
@@ -95,7 +113,7 @@ const Task = ({ task }) => {
         </div>
         <div className="tasks-count ml-10 flex items-center">
           <span className="inline mr-2">
-            <CheckIcon />
+            <CheckIcon color={theme === ThemeMode.LIGHT ? "black" : "white"} />
           </span>
           <span className="inline">{`${task.completedTasks}/${task.totalTasks}`}</span>
         </div>
