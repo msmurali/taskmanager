@@ -6,6 +6,8 @@ import { useAuth } from "contexts/auth-context";
 import { addTask as addDoc, updateTask as updateDoc } from "services/tasks";
 import { useNavigate, useParams } from "react-router-dom";
 import { TasksContext } from "contexts/tasks-context";
+import { useTheme } from "contexts/theme-context";
+import { ThemeMode } from "contexts/theme-context";
 
 const TaskInput = ({ id, val, removeTask, setVal }) => {
   return (
@@ -27,7 +29,7 @@ const TaskInput = ({ id, val, removeTask, setVal }) => {
           type="text"
           name={`task-${id}`}
           id={`task-${id}`}
-          className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+          className="text-black w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
           minLength="3"
           required
           value={val}
@@ -42,6 +44,8 @@ const TaskForm = ({ action }) => {
   const { id } = useParams();
 
   const { tasks: tasksCollection } = React.useContext(TasksContext);
+
+  const { theme } = useTheme();
 
   const getTask = React.useCallback(() => {
     const data = tasksCollection.filter((task) => task.id === id)[0];
@@ -151,7 +155,11 @@ const TaskForm = ({ action }) => {
   };
 
   return (
-    <div className="task-form w-full h-full overflow-y-auto font-primary p-8">
+    <div
+      className={`task-form w-full h-full overflow-y-auto font-primary p-8 ${
+        theme === ThemeMode.LIGHT ? "text-black" : "text-white"
+      }`}
+    >
       <React.Fragment>
         <h1 className="form-title text-lg font-medium">
           {action === "edit" ? "Edit Task" : "Create task"}
@@ -165,7 +173,7 @@ const TaskForm = ({ action }) => {
               type="text"
               name="title"
               id="title"
-              className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+              className="text-black w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
               minLength="3"
               required
               value={title}
@@ -175,21 +183,76 @@ const TaskForm = ({ action }) => {
           <div className="form-group mt-8">
             <label className="block text-sm mb-1">Tag</label>
             <div className="flex justify-start items-center flex-wrap">
-              {Object.keys(Tag).map((key) => (
-                <div
-                  key={key}
-                  className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
-                    tag === Tag[key]
-                      ? `shadow-none text-${TagColorDark[key]} bg-${TagColorLight[key]}`
-                      : "shadow-md text-gray-700 bg-gray-200"
-                  }  px-2 py-1 rounded`}
-                  onClick={() => changeTag(Tag[key])}
-                >
-                  {`${Tag[key][0].toUpperCase()}${Tag[key]
-                    .substring(1)
-                    .toLowerCase()}`}
-                </div>
-              ))}
+              <div
+                className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
+                  tag === Tag.GENERAL
+                    ? `shadow-none text-green-700 bg-green-200`
+                    : "shadow-md text-gray-700 bg-gray-200"
+                }  px-2 py-1 rounded`}
+                onClick={() => changeTag(Tag.GENERAL)}
+              >
+                General
+              </div>
+              <div
+                className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
+                  tag === Tag.ENTERTAINMENT
+                    ? `shadow-none text-sky-700 bg-sky-200`
+                    : "shadow-md text-gray-700 bg-gray-200"
+                }  px-2 py-1 rounded`}
+                onClick={() => changeTag(Tag.ENTERTAINMENT)}
+              >
+                Entertainment
+              </div>
+              <div
+                className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
+                  tag === Tag.LEARNING
+                    ? `shadow-none text-yellow-700 bg-yellow-200`
+                    : "shadow-md text-gray-700 bg-gray-200"
+                }  px-2 py-1 rounded`}
+                onClick={() => changeTag(Tag.LEARNING)}
+              >
+                Learning
+              </div>
+              <div
+                className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
+                  tag === Tag.SHOPPING
+                    ? `shadow-none text-purple-700 bg-purple-200`
+                    : "shadow-md text-gray-700 bg-gray-200"
+                }  px-2 py-1 rounded`}
+                onClick={() => changeTag(Tag.SHOPPING)}
+              >
+                Shopping
+              </div>
+              <div
+                className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
+                  tag === Tag.TRAVEL
+                    ? `shadow-none text-pink-700 bg-pink-200`
+                    : "shadow-md text-gray-700 bg-gray-200"
+                }  px-2 py-1 rounded`}
+                onClick={() => changeTag(Tag.TRAVEL)}
+              >
+                Travel
+              </div>
+              <div
+                className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
+                  tag === Tag.URGENT
+                    ? `shadow-none text-red-700 bg-red-200`
+                    : "shadow-md text-gray-700 bg-gray-200"
+                }  px-2 py-1 rounded`}
+                onClick={() => changeTag(Tag.URGENT)}
+              >
+                Urgent
+              </div>
+              <div
+                className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
+                  tag === Tag.WORK
+                    ? `shadow-none text-blue-700 bg-blue-200`
+                    : "shadow-md text-gray-700 bg-gray-200"
+                }  px-2 py-1 rounded`}
+                onClick={() => changeTag(Tag.WORK)}
+              >
+                Work
+              </div>
             </div>
           </div>
 
@@ -202,7 +265,7 @@ const TaskForm = ({ action }) => {
                 type="date"
                 name="from"
                 id="from"
-                className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+                className="text-black w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
                 required
                 value={from}
                 onChange={(e) => setFrom(e.target.value)}
@@ -216,7 +279,7 @@ const TaskForm = ({ action }) => {
                 type="date"
                 name="to"
                 id="to"
-                className="w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+                className="text-black w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
                 required
                 value={to}
                 onChange={(e) => setTo(e.target.value)}

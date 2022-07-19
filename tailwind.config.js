@@ -16,6 +16,7 @@ module.exports = {
         md: "860px",
       },
       backgroundColor: {
+        dark: "#151515",
         "general-tag": "rgb(187, 247, 208)",
         "entertainment-tag": "rgb(186, 230, 253)",
         "learning-tag": "rgb(254, 240, 138)",

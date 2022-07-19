@@ -8,11 +8,14 @@ import {
 } from "components/icon.components/index";
 import { updateTask } from "services/tasks";
 import { useAuth } from "contexts/auth-context";
+import { useTheme, ThemeMode } from "contexts/theme-context";
 
 const TaskPage = () => {
   const { id } = useParams();
 
   const { tasks } = React.useContext(TasksContext);
+
+  const { theme } = useTheme();
 
   const getTask = React.useCallback(() => {
     const data = tasks.filter((task) => task.id === id)[0];
@@ -57,7 +60,11 @@ const TaskPage = () => {
 
   return (
     task && (
-      <div className="task-page w-full h-full p-8 overflow-y-auto font-primary">
+      <div
+        className={`task-page w-full h-full p-8 overflow-y-auto font-primary ${
+          theme === ThemeMode.LIGHT ? "text-black" : "text-white"
+        }`}
+      >
         <div className="flex justify-between items-center">
           <h1 className="font-medium text-lg text-ellipsis">
             {task?.title}
@@ -107,7 +114,11 @@ const TaskPage = () => {
             return (
               <div
                 key={index}
-                className="flex flex-wrap items-center border border-gray-200 rounded p-4 mt-6"
+                className={`flex flex-wrap items-center border ${
+                  theme === ThemeMode.LIGHT
+                    ? "border-gray-200"
+                    : "border-gray-700"
+                } rounded p-4 mt-6`}
               >
                 <p
                   className={task?.completed ? "line-through" : "no-underline"}

@@ -5,6 +5,7 @@ import Badge from "components/badge.component";
 import { removeTask } from "services/tasks";
 import { useAuth } from "contexts/auth-context";
 import { Link } from "react-router-dom";
+import { useTheme, ThemeMode } from "contexts/theme-context";
 
 const Tag = ({ tag }) => {
   const getClassNames = () => {
@@ -37,13 +38,18 @@ const DateTag = ({ from, to }) => {
 
 const Task = ({ task }) => {
   const { user } = useAuth();
+  const { theme } = useTheme();
 
   const remove = async () => {
     await removeTask(user.uid, task.id);
   };
 
   return (
-    <div className="task mx-auto mt-10 bg-white relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200 cursor-pointer">
+    <div
+      className={`task mx-auto mt-10 ${
+        theme === ThemeMode.LIGHT ? "bg-white" : "bg-gray-800"
+      } relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200 cursor-pointer`}
+    >
       <Badge tag={task.tag} />
       <div className="flex justify-between items-center mt-5">
         <Link to={`/task/${task.id}`}>

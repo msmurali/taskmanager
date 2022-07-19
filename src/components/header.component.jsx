@@ -3,12 +3,21 @@ import AddIcon from "components/icon.components/add.icon.component";
 import SearchIcon from "components/icon.components/search.icon.component";
 import { TasksContext } from "contexts/tasks-context";
 import { Link } from "react-router-dom";
+import { useTheme } from "contexts/theme-context";
+import { ThemeMode } from "contexts/theme-context";
 
 const Header = () => {
   const { incompleteTasksCount } = React.useContext(TasksContext);
+  const { theme } = useTheme();
 
   return (
-    <header className="px-6 py-4 md:px-12 md:py-6 grid font-primary grid-cols-layout items-center border-b border-gray-200">
+    <header
+      className={`px-6 py-4 md:px-12 md:py-6 grid font-primary grid-cols-layout items-center border-b  ${
+        theme === ThemeMode.LIGHT
+          ? "text-black border-gray-200"
+          : "text-white border-gray-700"
+      }`}
+    >
       <h1 className="font-semibold text-base md:text-lg">TaskManager</h1>
       <nav className="flex justify-end md:justify-between items-center">
         <p className="hidden md:inline">
