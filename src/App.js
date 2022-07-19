@@ -9,6 +9,7 @@ import TaskForm from "components/task-form.component";
 import { Routes, Route } from "react-router-dom";
 import Home from "components/home.component";
 import { ThemeProvider } from "contexts/theme-context";
+import Settings from "components/settings.component";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="create" element={<TaskForm action="create" />} />
                 <Route path="task/:id" element={<TaskPage />} />
                 <Route path="edit/:id" element={<TaskForm action="edit" />} />
+                <Route path="settings" element={<Settings />} />
               </Route>
               <Route path="login" element={<LoginForm />} />
               <Route path="register" element={<RegisterForm />} />

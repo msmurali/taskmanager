@@ -1,20 +1,22 @@
 import React from "react";
 
-export const Theme = Object.freeze({
+const ThemeMode = Object.freeze({
   LIGHT: "light",
   DARK: "dark",
 });
 
 const ThemeContext = React.createContext(null);
 
+const useTheme = () => React.useContext(ThemeContext);
+
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = React.useState(Theme.LIGHT);
+  const [theme, setTheme] = React.useState(ThemeMode.LIGHT);
 
   const toggleTheme = () => {
-    if (theme === Theme.LIGHT) {
-      setTheme(Theme.DARK);
+    if (theme === ThemeMode.LIGHT) {
+      setTheme(ThemeMode.DARK);
     } else {
-      setTheme(Theme.LIGHT);
+      setTheme(ThemeMode.LIGHT);
     }
   };
 
@@ -25,4 +27,4 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-export { ThemeProvider };
+export { ThemeProvider, useTheme, ThemeMode };

@@ -178,7 +178,7 @@ const TaskForm = ({ action }) => {
               {Object.keys(Tag).map((key) => (
                 <div
                   key={key}
-                  className={`my-4 mr-4 inline-block cursor-pointer tag general-tag font-medium ${
+                  className={`my-4 mr-4 inline-block cursor-pointer font-medium ${
                     tag === Tag[key]
                       ? `shadow-none text-${TagColorDark[key]} bg-${TagColorLight[key]}`
                       : "shadow-md text-gray-700 bg-gray-200"

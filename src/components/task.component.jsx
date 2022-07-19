@@ -7,12 +7,12 @@ import { useAuth } from "contexts/auth-context";
 import { Link } from "react-router-dom";
 
 const Tag = ({ tag }) => {
+  const getClassNames = () => {
+    return `text-${tag}-tag bg-${tag}-tag`;
+  };
+
   return (
-    <div
-      className={`tag text-sm px-3 py-1 rounded font-medium text-${
-        TagColorDark[tag.toUpperCase()]
-      } bg-${TagColorLight[tag.toUpperCase()]}`}
-    >
+    <div className={`text-sm px-3 py-1 rounded font-medium ${getClassNames()}`}>
       {tag}
     </div>
   );
@@ -35,7 +35,7 @@ const DateTag = ({ from, to }) => {
   );
 };
 
-const Task = ({ task, id }) => {
+const Task = ({ task }) => {
   const { user } = useAuth();
 
   const remove = async () => {
