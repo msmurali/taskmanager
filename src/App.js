@@ -1,15 +1,17 @@
-import Dashboard from "components/dashboard.component";
-import LoginForm from "components/login-form.component";
-import RegisterForm from "components/register-form.component";
-import Header from "components/header.component";
-import TaskPage from "components/task-page.component";
-import TaskForm from "components/task-form.component";
 import { Routes, Route } from "react-router-dom";
-import Home from "components/home.component";
-import Settings from "components/settings.component";
 import { useTheme } from "contexts/theme-context";
 import { ThemeMode } from "contexts/theme-context";
-import Search from "components/search.component";
+import {
+  Dashboard,
+  Header,
+  Home,
+  LoginForm,
+  RegisterForm,
+  Search,
+  Settings,
+  TaskForm,
+  TaskPage,
+} from "components";
 
 function App() {
   const { theme } = useTheme();
