@@ -1,5 +1,5 @@
 import React from "react";
-import { Tag, TagColorDark, TagColorLight } from "constants/enums";
+import { Tag } from "constants/enums";
 import { CloseIcon, LoadingIcon } from "components/icon.components/index";
 import { Timestamp } from "@firebase/firestore";
 import { useAuth } from "contexts/auth-context";

@@ -9,6 +9,7 @@ import Home from "components/home.component";
 import Settings from "components/settings.component";
 import { useTheme } from "contexts/theme-context";
 import { ThemeMode } from "contexts/theme-context";
+import Search from "components/search.component";
 
 function App() {
   const { theme } = useTheme();
@@ -27,6 +28,7 @@ function App() {
           <Route path="task/:id" element={<TaskPage />} />
           <Route path="edit/:id" element={<TaskForm action="edit" />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="search" element={<Search />} />
         </Route>
         <Route path="login" element={<LoginForm />} />
         <Route path="register" element={<RegisterForm />} />

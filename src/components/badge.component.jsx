@@ -8,7 +8,7 @@ import {
   UrgentIcon,
   WorkIcon,
 } from "components/icon.components/index";
-import { Tag as tags, TagColorLight } from "constants/enums";
+import { Tag as tags } from "constants/enums";
 
 const Badge = ({ tag }) => {
   const getIcon = () => {
@@ -31,11 +31,29 @@ const Badge = ({ tag }) => {
     }
   };
 
+  const getBgColor = () => {
+    if (tag === tags.GENERAL) {
+      return `bg-green-200`;
+    } else if (tag === tags.ENTERTAINMENT) {
+      return `bg-sky-200`;
+    } else if (tag === tags.LEARNING) {
+      return `bg-yellow-200`;
+    } else if (tag === tags.SHOPPING) {
+      return `bg-purple-200`;
+    } else if (tag === tags.TRAVEL) {
+      return `bg-pink-200`;
+    } else if (tag === tags.URGENT) {
+      return `bg-red-200`;
+    } else if (tag === tags.WORK) {
+      return `bg-blue-200`;
+    } else {
+      return `bg-green-200`;
+    }
+  };
+
   return (
     <div
-      className={`badge absolute -top-4 left-4 w-10 h-10 rounded-full border-2 border-white bg-${
-        TagColorLight[tag.toUpperCase()]
-      } flex justify-center items-center`}
+      className={`badge absolute -top-4 left-4 w-10 h-10 rounded-full border-2 border-white ${getBgColor()} flex justify-center items-center`}
     >
       {getIcon()}
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { TagColorDark, TagColorLight, TagImg } from "constants/enums";
+import { TagImg } from "constants/enums";
 import { CheckIcon, CloseIcon } from "components/icon.components/index";
 import Badge from "components/badge.component";
 import { removeTask } from "services/tasks";
