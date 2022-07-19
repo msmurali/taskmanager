@@ -39,9 +39,11 @@ const Header = () => {
             </Link>
           </li>
           <li className="mx-3">
-            <button className="bg-gray-300 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none">
-              <SearchIcon />
-            </button>
+            <Link to="search">
+              <button className="bg-gray-300 w-10 h-10 rounded flex justify-center items-center shadow-md active:shadow-none">
+                <SearchIcon />
+              </button>
+            </Link>
           </li>
         </ul>
       </nav>

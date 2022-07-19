@@ -9,8 +9,11 @@ import {
   WorkIcon,
 } from "components/icon.components/index";
 import { Tag as tags } from "constants/enums";
+import { useTheme, ThemeMode } from "contexts/theme-context";
 
 const Badge = ({ tag }) => {
+  const { theme } = useTheme();
+
   const getIcon = () => {
     if (tag === tags.GENERAL) {
       return <GeneralIcon color="rgb(21, 128, 61)" />;
@@ -53,7 +56,9 @@ const Badge = ({ tag }) => {
 
   return (
     <div
-      className={`badge absolute -top-4 left-4 w-10 h-10 rounded-full border-2 border-white ${getBgColor()} flex justify-center items-center`}
+      className={`badge absolute -top-4 left-4 w-10 h-10 rounded-full border-2 ${
+        theme === ThemeMode.LIGHT ? "border-white" : "border-gray-700"
+      } ${getBgColor()} flex justify-center items-center`}
     >
       {getIcon()}
     </div>

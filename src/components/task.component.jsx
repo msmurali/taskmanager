@@ -40,7 +40,7 @@ const DateTag = ({ from, to }) => {
   const toDate = new Date(to.seconds * 1000);
 
   return (
-    <div className="date text-sm px-3 py-1 rounded bg-gray-300 ">
+    <div className="date text-black text-sm px-3 py-1 rounded bg-gray-300 ">
       {`${fromDate.toLocaleString("en-IN", {
         day: "numeric",
         month: "short",
@@ -64,9 +64,9 @@ const Task = ({ task }) => {
     <div
       className={`task mx-auto mt-10 ${
         theme === ThemeMode.LIGHT
-          ? "bg-white text-black"
-          : "bg-gray-800 text-white"
-      } relative font-primary min-w-[300px] max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200 cursor-pointer`}
+          ? "bg-white text-black border-gray-200 "
+          : "bg-dark-light text-white border-gray-700 "
+      } relative font-primary min-w-[300px] max-w-xs p-4 m-4 shadow-lg rounded-lg border cursor-pointer`}
     >
       <Badge tag={task.tag} />
       <div className="flex justify-between items-center mt-5">
