@@ -72,7 +72,7 @@ const RegisterForm = () => {
             type="email"
             name="email"
             id="email"
-            className="text-black even:bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
+            className="text-black bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 focus:border-purple-700 outline-none rounded-md"
             required
             value={email}
             onChange={changeHandler}

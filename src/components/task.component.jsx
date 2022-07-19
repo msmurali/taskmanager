@@ -66,7 +66,7 @@ const Task = ({ task }) => {
         theme === ThemeMode.LIGHT
           ? "bg-white text-black"
           : "bg-gray-800 text-white"
-      } relative font-primary max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200 cursor-pointer`}
+      } relative font-primary min-w-[300px] max-w-xs p-4 m-4 shadow-lg rounded-lg border border-gray-200 cursor-pointer`}
     >
       <Badge tag={task.tag} />
       <div className="flex justify-between items-center mt-5">
