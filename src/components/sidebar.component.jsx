@@ -4,13 +4,20 @@ import LogoutIcon from "components/icon.components/logout.icon.component";
 import SettingsIcon from "components/icon.components/settings.icon.component";
 import Calendar from "react-calendar";
 import { TasksContext } from "contexts/tasks-context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeMode } from "contexts/theme-context";
 import { useTheme } from "contexts/theme-context";
+import { logout } from "services/auth";
 
 const SideBar = () => {
   const { incompleteTasksCount, setDate } = React.useContext(TasksContext);
   const { theme } = useTheme();
+  const navigateTo = useNavigate();
+
+  const logoutHandler = () => {
+    logout();
+    navigateTo("/login");
+  };
 
   return (
     <aside
@@ -51,7 +58,10 @@ const SideBar = () => {
           <span className="hidden md:inline md:ml-4 ">Settings</span>
         </button>
       </Link>
-      <button className="mx-2 md:mx-0 p-3 md:px-4 md:py-3 md:w-full md:h-auto flex bg-red-600 justify-start items-center rounded shadow-md active:shadow-none">
+      <button
+        onClick={logoutHandler}
+        className="mx-2 md:mx-0 p-3 md:px-4 md:py-3 md:w-full md:h-auto flex bg-red-600 justify-start items-center rounded shadow-md active:shadow-none"
+      >
         <LogoutIcon color="white" />
         <span className="hidden md:inline md:ml-4 text-white">Logout</span>
       </button>

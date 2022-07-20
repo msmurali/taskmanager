@@ -30,14 +30,14 @@ export const TasksProvider = ({ children }) => {
 
   const value = {
     tasks,
-    incompleteTasksCount: tasks?.filter((task) => !task.completed).length,
+    incompleteTasksCount: !tasks
+      ? 0
+      : tasks.filter((task) => !task.completed).length,
     date,
     setDate,
   };
 
   return (
-    <TasksContext.Provider value={value}>
-      {tasks && children}
-    </TasksContext.Provider>
+    <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
   );
 };

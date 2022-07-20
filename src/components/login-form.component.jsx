@@ -94,7 +94,7 @@ const LoginForm = () => {
         </button>
         <p className="text-sm mt-4 text-center">
           Don't have an account?
-          <Link to="register" className="text-purple-700">
+          <Link to="/register" className="text-purple-700">
             {" "}
             sign up{" "}
           </Link>

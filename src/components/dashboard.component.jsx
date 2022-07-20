@@ -18,7 +18,7 @@ const Dashboard = () => {
           <span className="inline md:hidden font-medium ml-auto">&gt;</span>
         </div>
         <div className="tasks py-4 px-2">
-          {data &&
+          {data.tasks &&
             data.tasks
               .filter((task) => !task.completed)
               .map((task, index) => <Task task={task} key={index} />)}
@@ -34,7 +34,7 @@ const Dashboard = () => {
           <span className="inline md:hidden font-medium ml-auto">&gt;</span>
         </div>
         <div className="tasks py-4 px-2">
-          {data &&
+          {data.tasks &&
             data.tasks
               .filter((task) => task.completed)
               .map((task, index) => <Task task={task} key={index} />)}

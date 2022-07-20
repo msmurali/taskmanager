@@ -7,6 +7,7 @@ import {
   Home,
   LoginForm,
   RegisterForm,
+  RequireAuth,
   Search,
   Settings,
   TaskForm,
@@ -24,7 +25,14 @@ function App() {
     >
       <Header />
       <Routes>
-        <Route path="/" element={<Home />}>
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        >
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="create" element={<TaskForm action="create" />} />
           <Route path="task/:id" element={<TaskPage />} />

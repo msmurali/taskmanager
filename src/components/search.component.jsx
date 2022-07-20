@@ -6,11 +6,17 @@ import { Task } from "components";
 
 const Search = () => {
   const { theme } = useTheme();
-  const { tasks, date } = React.useContext(TasksContext);
+  const { tasks, date, setDate } = React.useContext(TasksContext);
   const [query, setQuery] = React.useState("");
 
+  React.useEffect(() => setDate(null), [setDate]);
+
   const isInRange = (min, max, date) => {
-    return +min <= +date && +date <= +max;
+    if (!date) return true;
+    return (
+      +min.setHours(0, 0, 0, 0) <= +date.setHours(0, 0, 0, 0) &&
+      +date.setHours(0, 0, 0, 0) <= +max.setHours(0, 0, 0, 0)
+    );
   };
 
   const changeHandler = (e) => {
@@ -42,15 +48,16 @@ const Search = () => {
       </div>
       <div className="flex justify-start items-center flex-wrap gap-4">
         {query &&
+          tasks &&
           tasks
             .filter((task) =>
               task.title.toLowerCase().includes(query.toLowerCase())
             )
             .filter((task) =>
               isInRange(
-                new Date(task.from.seconds * 1000).setHours(0, 0, 0, 0),
-                new Date(task.to.seconds * 1000).setHours(0, 0, 0, 0),
-                date.setHours(0, 0, 0, 0)
+                new Date(task.from.seconds * 1000),
+                new Date(task.to.seconds * 1000),
+                date
               )
             )
             .map((task, index) => <Task task={task} key={index} />)}

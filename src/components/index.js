@@ -4,6 +4,7 @@ import Header from "./header.component";
 import Home from "./home.component";
 import LoginForm from "./login-form.component";
 import RegisterForm from "./register-form.component";
+import RequireAuth from "./require-auth.component";
 import Search from "./search.component";
 import Settings from "./settings.component";
 import SideBar from "./sidebar.component";
@@ -18,6 +19,7 @@ export {
   Home,
   LoginForm,
   RegisterForm,
+  RequireAuth,
   Search,
   Settings,
   SideBar,
