@@ -55,7 +55,7 @@ const SideBar = () => {
         />
       </div>
       <Link to="settings" className="w-auto md:w-full">
-        <button className="mx-3 md:mb-4 md:mx-0 p-3 md:px-4 md:py-3 md:w-full md:h-auto flex bg-gray-300  justify-start items-center rounded shadow-md active:shadow-none">
+        <button className="text-black mx-3 md:mb-4 md:mx-0 p-3 md:px-4 md:py-3 md:w-full md:h-auto flex bg-gray-300  justify-start items-center rounded shadow-md active:shadow-none">
           <SettingsIcon />
           <span className="hidden md:inline md:ml-4 ">Settings</span>
         </button>
