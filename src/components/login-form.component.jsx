@@ -1,6 +1,6 @@
 import React from "react";
 import { login } from "services/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme, ThemeMode } from "contexts/theme-context";
 
 const LoginForm = () => {
@@ -9,6 +9,7 @@ const LoginForm = () => {
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const { theme } = useTheme();
+  const navigateTo = useNavigate();
 
   const changeHandler = (e) => {
     if (e.target.name === "email") {
@@ -27,6 +28,7 @@ const LoginForm = () => {
 
     try {
       await login(email, password);
+      navigateTo("/dashboard");
     } catch (error) {
       if (error.code === "auth/user-not-found") {
         setError("User not found");

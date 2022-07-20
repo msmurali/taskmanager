@@ -70,7 +70,7 @@ const TaskPage = () => {
             {task?.title}
             <span className="block text-xs font-normal">{task?.tag}</span>
           </h1>
-          <div className="btn-container">
+          <div className="btn-container flex items-center">
             <Link to={`/edit/${id}`}>
               <button className="mr-4 inline-flex px-4 py-2 bg-purple-700 text-white rounded shadow-md active:shadow-none items-center justify-center">
                 <span className="inline md:hidden mr-0.5 md:mr-4">

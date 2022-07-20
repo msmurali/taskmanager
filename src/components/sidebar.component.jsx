@@ -22,7 +22,9 @@ const SideBar = () => {
   return (
     <aside
       className={`h-full overflow-y-auto font-primary px-6 py-4 flex md:flex-col justify-end md:justify-evenly items-center border-r ${
-        theme === ThemeMode.LIGHT ? "border-gray-200" : "border-gray-700"
+        theme === ThemeMode.LIGHT
+          ? "text-black border-gray-200"
+          : "text-white border-gray-700"
       }`}
     >
       <p className="inline md:hidden mr-auto">

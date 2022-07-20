@@ -1,6 +1,6 @@
 import React from "react";
 import { register } from "services/auth.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "contexts/theme-context";
 import { ThemeMode } from "contexts/theme-context";
 
@@ -11,6 +11,7 @@ const RegisterForm = () => {
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const { theme } = useTheme();
+  const navigateTo = useNavigate();
 
   const changeHandler = (e) => {
     if (e.target.name === "email") {
@@ -37,6 +38,7 @@ const RegisterForm = () => {
 
     try {
       await register(email, password);
+      navigateTo("/login");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setError("Email already exists");
