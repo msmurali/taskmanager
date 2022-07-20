@@ -28,10 +28,11 @@ const ThemeProvider = ({ children }) => {
   const toggleTheme = () => {
     if (theme === ThemeMode.LIGHT) {
       setTheme(ThemeMode.DARK);
+      storeTheme(ThemeMode.DARK);
     } else {
       setTheme(ThemeMode.LIGHT);
+      storeTheme(ThemeMode.LIGHT);
     }
-    storeTheme(theme);
   };
 
   const value = { theme, toggleTheme };

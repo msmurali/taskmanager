@@ -9,7 +9,7 @@ import { ThemeMode } from "contexts/theme-context";
 import { useTheme } from "contexts/theme-context";
 
 const SideBar = () => {
-  const { incompleteTasksCount } = React.useContext(TasksContext);
+  const { incompleteTasksCount, setDate } = React.useContext(TasksContext);
   const { theme } = useTheme();
 
   return (
@@ -37,6 +37,7 @@ const SideBar = () => {
 
       <div className="my-4 hidden md:block">
         <Calendar
+          onChange={(date) => setDate(date)}
           className={`${
             theme === ThemeMode.LIGHT
               ? ""

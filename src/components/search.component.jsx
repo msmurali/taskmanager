@@ -6,8 +6,12 @@ import { Task } from "components";
 
 const Search = () => {
   const { theme } = useTheme();
-  const { tasks } = React.useContext(TasksContext);
+  const { tasks, date } = React.useContext(TasksContext);
   const [query, setQuery] = React.useState("");
+
+  const isInRange = (min, max, date) => {
+    return +min <= +date && +date <= +max;
+  };
 
   const changeHandler = (e) => {
     setQuery(e.target.value);
@@ -36,11 +40,18 @@ const Search = () => {
           <CloseIcon color="white" />
         </button>
       </div>
-      <div className="flex justify-start items-center flex-wrap">
+      <div className="flex justify-start items-center flex-wrap gap-4">
         {query &&
           tasks
             .filter((task) =>
               task.title.toLowerCase().includes(query.toLowerCase())
+            )
+            .filter((task) =>
+              isInRange(
+                new Date(task.from.seconds * 1000).setHours(0, 0, 0, 0),
+                new Date(task.to.seconds * 1000).setHours(0, 0, 0, 0),
+                date.setHours(0, 0, 0, 0)
+              )
             )
             .map((task, index) => <Task task={task} key={index} />)}
       </div>

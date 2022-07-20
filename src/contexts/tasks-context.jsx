@@ -7,6 +7,7 @@ export const TasksContext = React.createContext();
 
 export const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = React.useState(null);
+  const [date, setDate] = React.useState(null);
   const { user } = useAuth();
 
   React.useEffect(() => {
@@ -30,6 +31,8 @@ export const TasksProvider = ({ children }) => {
   const value = {
     tasks,
     incompleteTasksCount: tasks?.filter((task) => !task.completed).length,
+    date,
+    setDate,
   };
 
   return (
