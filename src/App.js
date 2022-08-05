@@ -33,15 +33,15 @@ function App() {
             </RequireAuth>
           }
         >
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route index path="dashboard" element={<Dashboard />} />
           <Route path="create" element={<TaskForm action="create" />} />
           <Route path="task/:id" element={<TaskPage />} />
           <Route path="edit/:id" element={<TaskForm action="edit" />} />
           <Route path="settings" element={<Settings />} />
           <Route path="search" element={<Search />} />
         </Route>
-        <Route path="login" element={<LoginForm />} />
-        <Route path="register" element={<RegisterForm />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </div>
   );

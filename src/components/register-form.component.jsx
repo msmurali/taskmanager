@@ -38,7 +38,7 @@ const RegisterForm = () => {
 
     try {
       await register(email, password);
-      navigateTo("/login");
+      navigateTo("/dashboard");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setError("Email already exists");

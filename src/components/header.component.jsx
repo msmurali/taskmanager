@@ -2,15 +2,14 @@ import React from "react";
 import AddIcon from "components/icon.components/add.icon.component";
 import SearchIcon from "components/icon.components/search.icon.component";
 import { TasksContext } from "contexts/tasks-context";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "contexts/theme-context";
 import { ThemeMode } from "contexts/theme-context";
-import { useAuth } from "contexts/auth-context";
 
 const Header = () => {
   const { incompleteTasksCount } = React.useContext(TasksContext);
   const { theme } = useTheme();
-  const { user } = useAuth();
+  const { pathname } = useLocation();
 
   return (
     <header
@@ -21,8 +20,14 @@ const Header = () => {
       }`}
     >
       <h1 className="font-semibold text-base md:text-lg">TaskManager</h1>
-      {user && (
-        <nav className="flex justify-end md:justify-between items-center">
+      {!pathname.includes("login") && !pathname.includes("register") && (
+        <nav
+          className={`flex justify-end md:justify-between items-center ${
+            pathname.includes("login") || pathname.includes("register")
+              ? "hidden"
+              : ""
+          }`}
+        >
           <p className="hidden md:inline">
             You have
             <span className="font-medium">{` ${incompleteTasksCount} ${

@@ -9,13 +9,19 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = React.useState(null);
+  const [authLoading, setAuthLoading] = React.useState(false);
 
   React.useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => setUser(user));
-    return unsubscribe;
-  }, []);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setAuthLoading(true);
+      setUser(user);
+      setAuthLoading(false);
+    });
 
-  const value = { user };
+    return unsubscribe;
+  });
+
+  const value = { user, authLoading };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
